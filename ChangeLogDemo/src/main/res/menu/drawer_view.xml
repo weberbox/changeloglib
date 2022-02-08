@@ -14,7 +14,7 @@
             android:icon="@drawable/ic_launcher"
             android:title="@string/navdrawer_item_material"/>
         <item
-            android:id="@+id/nav_ex_dialo"
+            android:id="@+id/nav_ex_dialog"
             android:icon="@drawable/ic_launcher"
             android:title="@string/navdrawer_item_dialog"/>
         <item

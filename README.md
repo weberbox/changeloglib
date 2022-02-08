@@ -39,7 +39,7 @@ ChangeLog Library is pushed to Maven Central as a AAR, so you just need to add t
 
 ``` groovy
 dependencies {
-    compile 'com.github.gabrielemariotti.changeloglib:changelog:2.1.0'
+    implementation 'com.github.weberbox.changeloglib:x.x.x'
 }
 ```
 
@@ -57,7 +57,7 @@ First, add in your layout the `ChangeLogRecyclerView ` that displays your change
 
 ``` xml
 <?xml version="1.0" encoding="utf-8"?>
-<it.gmariotti.changelibs.library.view.ChangeLogRecyclerView
+<com.weberbox.changelibs.library.view.ChangeLogRecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/view"
     android:layout_width="match_parent"

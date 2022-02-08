@@ -1,9 +1,5 @@
 # ChangeLog Library Demo
 
-The demo is a showcase of the functionality of the library.
-[![Get it on Google Play](http://www.android.com/images/brand/get_it_on_play_logo_small.png)](https://play.google.com/store/apps/details?id=it.gmariotti.changelog.demo)
-
-
 There are some usage examples.
 
 See the **customization and tips** [page:](/doc/CUSTOMIZATION.md) for more information.
@@ -67,25 +63,13 @@ An example with a Dialog
 Credits
 -------
 
-Author: Gabriele Mariotti (gabri.mariotti@gmail.com)
-
-<a href="https://plus.google.com/u/0/114432517923423045208">
-  <img alt="Follow me on Google+"
-       src="https://github.com/gabrielemariotti/cardslib/raw/master/demo/images/g+64.png" />
-</a>
-<a href="https://twitter.com/GabMarioPower">
-  <img alt="Follow me on Twitter"
-       src="https://github.com/gabrielemariotti/cardslib/raw/master/demo/images/twitter64.png" />
-</a>
-<a href="http://it.linkedin.com/in/gabrielemariotti">
-  <img alt="Follow me on LinkedIn"
-       src="https://github.com/gabrielemariotti/cardslib/raw/master/demo/images/linkedin.png" />
-</a>
+Original Author: Gabriele Mariotti (gabri.mariotti@gmail.com)
 
 License
 -------
 
     Copyright 2013-2014 Gabriele Mariotti
+    Copyright 2021 James Weber
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

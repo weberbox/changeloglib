@@ -5,17 +5,16 @@ There are many ways you can customize the changelog view.
 * [Custom Header Layout](#custom-header-layout)
 * [Custom Row Layout](#custom-row-layout)
 * [Layouts with Material Specs](#layouts-with-material-specs)
-* [Custom ChangeLog XML](#custom-changeLog-xml)
+* [Custom ChangeLog XML](#custom-changelog-xml)
 * [Bullet Point](#bullet-point)
 * [Html Text Markup](#html-text-markup)
 * [Customize Strings](#customize-strings)
 * [Use an url to download the changelog.xml file](#use-an-url-to-download-the-changelog.xml-file)
 * [Bug and improvement tags](#bug-and-improvement-tags)
-* [Emtpy view](#emtpy-view)
 
 The library uses a custom `RecyclerView` to display the changelog.
 
-If you would like to use a `ListView`, you have the same features changing the `it.gmariotti.changelibs.library.view.ChangeLogRecyclerView` with `it.gmariotti.changelibs.library.view.ChangeLogListView`.
+If you would like to use a `ListView`, you have the same features changing the `com.weberbox.changelibs.library.view.ChangeLogRecyclerView` with `it.gmariotti.changelibs.library.view.ChangeLogListView`.
 
 
 ### Custom Header Layout
@@ -25,7 +24,7 @@ You can use your own xml layout with `chg:rowHeaderLayoutId` attribute in `Chang
 
 ``` xml
     <!-- Custom xml file Example and custom header layout -->
-    <it.gmariotti.changelibs.library.view.ChangeLogRecyclerView
+    <com.weberbox.changelibs.library.view.ChangeLogRecyclerView
           xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:chg="http://schemas.android.com/apk/res-auto"
           android:layout_width="match_parent"
@@ -50,7 +49,7 @@ You can use your own xml layout with `chg:rowLayoutId` attribute in `ChangeLogRe
 ``` xml
 
     <!-- Custom xml file Example and custom header layout -->
-    <it.gmariotti.changelibs.library.view.ChangeLogRecyclerView
+    <com.weberbox.changelibs.library.view.ChangeLogRecyclerView
           xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:chg="http://schemas.android.com/apk/res-auto"
           android:layout_width="match_parent"
@@ -78,7 +77,7 @@ You can use them with a simple:
 ``` xml
 
     <!-- Material layout -->
-     <it.gmariotti.changelibs.library.view.ChangeLogRecyclerView
+     <com.weberbox.changelibs.library.view.ChangeLogRecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/view"
@@ -92,7 +91,7 @@ You can find an example in [`demo_changelogrow_fragment_material.xml`](/ChangeLo
 You can find a screenshot [here](/ChangeLogDemo/README.md#material-specs).
 
 
-### Custom ChangeLog XML
+### Custom Changelog XML
 
 Library uses `res/raw/changelog.xml`.
 You can use your own file with `chg:changeLogFileResourceId` attribute in `ChangeLogRecyclerView` element.
@@ -100,7 +99,7 @@ You can use your own file with `chg:changeLogFileResourceId` attribute in `Chang
 ``` xml
 
     <!-- Custom xml file Example and custom header layout -->
-    <it.gmariotti.changelibs.library.view.ChangeLogRecyclerView
+    <com.weberbox.changelibs.library.view.ChangeLogRecyclerView
           xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:chg="http://schemas.android.com/apk/res-auto"
           android:layout_width="match_parent"
@@ -184,7 +183,7 @@ You can use a url link to download your xml file with `chg:changeLogFileResource
 ``` xml
 
     <!-- Custom xml file Example and custom header layout -->
-    <it.gmariotti.changelibs.library.view.ChangeLogRecyclerView
+    <com.weberbox.changelibs.library.view.ChangeLogRecyclerView
           xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:chg="http://schemas.android.com/apk/res-auto"
           android:layout_width="match_parent"
