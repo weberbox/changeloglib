@@ -23,13 +23,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import it.gmariotti.changelog.demo.MainActivity;
 import it.gmariotti.changelog.demo.R;
-
 
 /**
  * ChangeLog Example with custom layout file for header.
- *
+ * <p>
  * Example:
  *
  * <pre>

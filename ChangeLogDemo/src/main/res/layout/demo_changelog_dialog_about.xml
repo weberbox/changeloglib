@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 ~ *******************************************************************************
 ~   Copyright (c) 2013-2014 Gabriele Mariotti.
 ~
@@ -17,33 +16,37 @@
 ~  *****************************************************************************
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <TextView android:id="@+id/app_name_and_version"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:drawableLeft="@drawable/ic_launcher"
-              android:drawablePadding="8dp"
-              android:gravity="center_vertical"
-              android:fontFamily="sans-serif-condensed"
-              android:textSize="16sp"
-              android:layout_marginLeft="16dp"
-              android:layout_marginTop="8dp"
-              android:layout_marginRight="16dp"
-              android:layout_marginBottom="8dp" />
+    <TextView
+        android:id="@+id/app_name_and_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:textSize="16sp"
+        app:drawableLeftCompat="@drawable/ic_launcher"
+        app:drawableStartCompat="@drawable/ic_launcher"
+        app:fontFamily="sans-serif-condensed" />
 
-    <ScrollView android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:id="@+id/about_body"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:padding="16dp"
-                  android:textSize="@dimen/text_size_medium" />
+        <TextView
+            android:id="@+id/about_body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:textSize="@dimen/text_size_medium" />
 
     </ScrollView>
 

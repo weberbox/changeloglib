@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2013 Gabriele Mariotti.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,9 +12,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- ******************************************************************************/
+ **/
 package it.gmariotti.changelibs.library.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.AsyncTask;
@@ -37,7 +38,6 @@ import it.gmariotti.changelibs.library.parser.XmlParser;
 /**
  * ListView for ChangeLog
  *
- *
  * @author Gabriele Mariotti (gabri.mariotti@gmail.com)
  */
 public class ChangeLogListView extends ListView implements AdapterView.OnItemClickListener {
@@ -45,13 +45,13 @@ public class ChangeLogListView extends ListView implements AdapterView.OnItemCli
     //--------------------------------------------------------------------------
     // Custom Attrs
     //--------------------------------------------------------------------------
-    protected int mRowLayoutId= Constants.mRowLayoutId;
-    protected int mRowHeaderLayoutId=Constants.mRowHeaderLayoutId;
-    protected int mChangeLogFileResourceId=Constants.mChangeLogFileResourceId;
-    protected String mChangeLogFileResourceUrl=null;
+    protected int mRowLayoutId = Constants.rowLayoutId;
+    protected int mRowHeaderLayoutId = Constants.rowHeaderLayoutId;
+    protected int mChangeLogFileResourceId = Constants.changeLogFileResourceId;
+    protected String mChangeLogFileResourceUrl = null;
 
     //--------------------------------------------------------------------------
-    protected static String TAG="ChangeLogListView";
+    protected static String TAG = "ChangeLogListView";
     // Adapter
     protected ChangeLogAdapter mAdapter;
 
@@ -83,10 +83,10 @@ public class ChangeLogListView extends ListView implements AdapterView.OnItemCli
     /**
      * Initialize
      *
-     * @param attrs
-     * @param defStyle
+     * @param attrs    attrs
+     * @param defStyle defStyle
      */
-    protected void init(AttributeSet attrs, int defStyle){
+    protected void init(AttributeSet attrs, int defStyle) {
         //Init attrs
         initAttrs(attrs, defStyle);
         //Init adapter
@@ -99,8 +99,8 @@ public class ChangeLogListView extends ListView implements AdapterView.OnItemCli
     /**
      * Init custom attrs.
      *
-     * @param attrs
-     * @param defStyle
+     * @param attrs    attrs
+     * @param defStyle defStyle
      */
     protected void initAttrs(AttributeSet attrs, int defStyle) {
         TypedArray a = getContext().getTheme().obtainStyledAttributes(
@@ -112,7 +112,7 @@ public class ChangeLogListView extends ListView implements AdapterView.OnItemCli
             mRowHeaderLayoutId = a.getResourceId(R.styleable.ChangeLogListView_rowHeaderLayoutId, mRowHeaderLayoutId);
 
             //Changelog.xml file
-            mChangeLogFileResourceId = a.getResourceId(R.styleable.ChangeLogListView_changeLogFileResourceId,mChangeLogFileResourceId);
+            mChangeLogFileResourceId = a.getResourceId(R.styleable.ChangeLogListView_changeLogFileResourceId, mChangeLogFileResourceId);
 
             mChangeLogFileResourceUrl = a.getString(R.styleable.ChangeLogListView_changeLogFileResourceUrl);
             //String which is used in header row for Version
@@ -128,58 +128,58 @@ public class ChangeLogListView extends ListView implements AdapterView.OnItemCli
      */
     protected void initAdapter() {
 
-        try{
+        try {
             //Read and parse changelog.xml
             XmlParser parse;
-            if (mChangeLogFileResourceUrl!=null)
-                parse = new XmlParser(getContext(),mChangeLogFileResourceUrl);
+            if (mChangeLogFileResourceUrl != null)
+                parse = new XmlParser(getContext(), mChangeLogFileResourceUrl);
             else
-                parse = new XmlParser(getContext(),mChangeLogFileResourceId);
+                parse = new XmlParser(getContext(), mChangeLogFileResourceId);
             //ChangeLog chg=parse.readChangeLogFile();
             ChangeLog chg = new ChangeLog();
 
-			//Create adapter and set custom attrs
-			mAdapter = new ChangeLogAdapter(getContext(),chg.getRows());
-			mAdapter.setmRowLayoutId(mRowLayoutId);
-			mAdapter.setmRowHeaderLayoutId(mRowHeaderLayoutId);
+            //Create adapter and set custom attrs
+            mAdapter = new ChangeLogAdapter(getContext(), chg.getRows());
+            mAdapter.setRowLayoutId(mRowLayoutId);
+            mAdapter.setRowHeaderLayoutId(mRowHeaderLayoutId);
 
-			//Parse in a separate Thread to avoid UI block with large files
-			if (mChangeLogFileResourceUrl==null || (mChangeLogFileResourceUrl!=null && Util.isConnected(getContext())))
-				new ParseAsyncTask(mAdapter,parse).execute();
-			else
-				Toast.makeText(getContext(),R.string.changelog_internal_error_internet_connection,Toast.LENGTH_LONG).show();
-			setAdapter(mAdapter);
+            //Parse in a separate Thread to avoid UI block with large files
+            if (mChangeLogFileResourceUrl == null || Util.isConnected(getContext()))
+                new ParseAsyncTask(mAdapter, parse).execute();
+            else
+                Toast.makeText(getContext(), R.string.changelog_internal_error_internet_connection, Toast.LENGTH_LONG).show();
+            setAdapter(mAdapter);
 
-        }catch (Exception e){
-            Log.e(TAG,getResources().getString(R.string.changelog_internal_error_parsing),e);
+        } catch (Exception e) {
+            Log.e(TAG, getResources().getString(R.string.changelog_internal_error_parsing), e);
         }
 
     }
 
     /**
      * Async Task to parse xml file in a separate thread
-     *
      */
-    protected class ParseAsyncTask extends AsyncTask<Void, Void, ChangeLog>{
+    @SuppressLint("StaticFieldLeak")
+    protected class ParseAsyncTask extends AsyncTask<Void, Void, ChangeLog> {
 
-        private ChangeLogAdapter mAdapter;
-        private XmlParser mParse;
+        private final ChangeLogAdapter mAdapter;
+        private final XmlParser mParse;
 
-        public ParseAsyncTask(ChangeLogAdapter adapter,XmlParser parse){
-            mAdapter=adapter;
-            mParse= parse;
+        @SuppressWarnings("deprecation")
+        public ParseAsyncTask(ChangeLogAdapter adapter, XmlParser parse) {
+            mAdapter = adapter;
+            mParse = parse;
         }
 
         @Override
         protected ChangeLog doInBackground(Void... params) {
 
-            try{
-                if (mParse!=null){
-                    ChangeLog chg=mParse.readChangeLogFile();
-                    return chg;
+            try {
+                if (mParse != null) {
+                    return mParse.readChangeLogFile();
                 }
-            }catch (Exception e){
-                Log.e(TAG,getResources().getString(R.string.changelog_internal_error_parsing),e);
+            } catch (Exception e) {
+                Log.e(TAG, getResources().getString(R.string.changelog_internal_error_parsing), e);
             }
             return null;
         }
@@ -187,16 +187,8 @@ public class ChangeLogListView extends ListView implements AdapterView.OnItemCli
         protected void onPostExecute(ChangeLog chg) {
 
             //Notify data changed
-            if (chg!=null){
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
-                    mAdapter.addAll(chg.getRows());
-                }else{
-                    if(chg.getRows()!=null){
-                        for(ChangeLogRow row:chg.getRows()){
-                            mAdapter.add(row);
-                        }
-                    }
-                }
+            if (chg != null) {
+                mAdapter.addAll(chg.getRows());
                 mAdapter.notifyDataSetChanged();
             }
         }

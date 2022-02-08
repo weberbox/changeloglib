@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ /*******************************************************************************
   ~  * Copyright (c) 2013 Gabriele Mariotti.
   ~  *
@@ -18,45 +17,49 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/chg_row"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginLeft="12dp"
-              android:orientation="vertical" >
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/chg_row"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="12dp"
+    android:layout_marginLeft="12dp"
+    android:orientation="vertical">
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="?android:attr/listPreferredItemHeight"
-            android:gravity="center_vertical"
-            android:orientation="horizontal" >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:minHeight="?attr/listPreferredItemHeight"
+        android:orientation="horizontal"
+        tools:ignore="UselessParent">
 
 
-       <!-- ChangeLog Row [Bullet Point] You have to use the id="chg_textbullet" -->
+        <!-- ChangeLog Row [Bullet Point] You have to use the id="chg_textbullet" -->
         <TextView
-                android:id="@+id/chg_textbullet"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:layout_marginRight="2dp"
-                android:layout_marginLeft="12dp"
-                android:textAppearance="@android:style/TextAppearance.Small"
-                android:text="@string/changelog_row_bulletpoint"
-                android:textColor="@android:color/holo_blue_dark"
-                />
+            android:id="@+id/chg_textbullet"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginRight="2dp"
+            android:gravity="center_vertical"
+            android:text="@string/changelog_row_bulletpoint"
+            android:textAppearance="@android:style/TextAppearance.Small"
+            android:textColor="@android:color/holo_blue_dark" />
 
 
         <!-- ChangeLog Row [Text] You have to use the id="chg_text" -->
-       <TextView
-                android:id="@+id/chg_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:layout_marginLeft="12dp"
-                android:textColor="@android:color/holo_orange_dark"
-                android:minHeight="?android:attr/listPreferredItemHeightSmall"
-                android:textAppearance="@android:style/TextAppearance.Small"
-                />
+        <TextView
+            android:id="@+id/chg_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:gravity="center_vertical"
+            android:minHeight="?attr/listPreferredItemHeightSmall"
+            android:textAppearance="@android:style/TextAppearance.Small"
+            android:textColor="@android:color/holo_orange_dark" />
     </LinearLayout>
 
 

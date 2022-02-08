@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2013 Gabriele Mariotti.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- ******************************************************************************/
+ **/
 package it.gmariotti.changelibs.library;
 
 import it.gmariotti.changelibs.R;
@@ -25,35 +25,35 @@ import it.gmariotti.changelibs.R;
 public class Constants {
 
     /**
-     *  Resource id for changelog.xml file.
-     *
-     *  You shouldn't modify this value.
-     *  You can use changeLogResourceId attribute in ChangeLogListView
+     * Resource id for changelog.xml file.
+     * <p>
+     * You shouldn't modify this value.
+     * You can use changeLogResourceId attribute in ChangeLogListView
      **/
-    public static final int mChangeLogFileResourceId= R.raw.changelog;
+    public static final int changeLogFileResourceId = R.raw.changelog;
 
     /**
-     *  Layout resource id for changelog item rows.
-     *
-     *  You shouldn't modify this value.
-     *  You can use rowLayoutId attribute in ChangeLogListView
+     * Layout resource id for changelog item rows.
+     * <p>
+     * You shouldn't modify this value.
+     * You can use rowLayoutId attribute in ChangeLogListView
      **/
-    public static final int mRowLayoutId=R.layout.changelogrow_layout;
+    public static final int rowLayoutId = R.layout.changelogrow_layout;
 
     /**
      * Layout resource id for changelog header rows.
-     *
-     *  You shouldn't modify this value.
-     *  You can use rowHeaderLayoutId attribute in ChangeLogListView
+     * <p>
+     * You shouldn't modify this value.
+     * You can use rowHeaderLayoutId attribute in ChangeLogListView
      **/
-    public static final int mRowHeaderLayoutId=R.layout.changelogrowheader_layout;
+    public static final int rowHeaderLayoutId = R.layout.changelogrowheader_layout;
 
 
     /**
-     *  String resource id for text Version in header row.
-     *
+     * String resource id for text Version in header row.
+     * <p>
      * You shouldn't modify this value.
-     *  You can use changelog_header_version in strings.xml
+     * You can use changelog_header_version in strings.xml
      */
-    public static final int mStringVersionHeader= R.string.changelog_header_version;
+    public static final int stringVersionHeader = R.string.changelog_header_version;
 }

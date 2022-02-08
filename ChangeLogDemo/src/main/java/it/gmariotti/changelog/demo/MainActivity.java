@@ -1,5 +1,4 @@
-/**
- * ****************************************************************************
+/*
  * Copyright (c) 2013 Gabriele Mariotti.
  * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,21 +17,21 @@
 package it.gmariotti.changelog.demo;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.design.widget.NavigationView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.navigation.NavigationView;
 
 import it.gmariotti.changelog.demo.fragment.BaseFragment;
 import it.gmariotti.changelog.demo.fragment.CustomLayoutFragment;
@@ -42,31 +41,24 @@ import it.gmariotti.changelog.demo.fragment.DialogMaterialFragment;
 import it.gmariotti.changelog.demo.fragment.MaterialFragment;
 import it.gmariotti.changelog.demo.fragment.StandardFragment;
 import it.gmariotti.changelog.demo.fragment.WithoutBulletPointFragment;
-import it.gmariotti.changelog.demo.iabutils.IabHelper;
-import it.gmariotti.changelog.demo.iabutils.IabResult;
-import it.gmariotti.changelog.demo.iabutils.IabUtil;
 import it.gmariotti.changelog.demo.utils.PrefUtils;
-import it.gmariotti.changelog.demo.utils.UtilsBase;
 
 
 /**
- *  Main Activity
+ * Main Activity
  *
- *  @author Gabriele Mariotti (gabri.mariotti@gmail.com)
+ * @author Gabriele Mariotti (gabri.mariotti@gmail.com)
  */
 public class MainActivity extends AppCompatActivity {
 
-    private UtilsBase mUtils;
-
     private DrawerLayout mDrawerLayout;
     private BaseFragment mSelectedFragment;
-    private IabHelper mHelper;
 
-    private static String TAG = "MainActivity";
-    private static String BUNDLE_SELECTEDFRAGMENT = "BDL_SELFRG";
+    private static final String TAG = "MainActivity";
+    private static final String BUNDLE_SELECTEDFRAGMENT = "BDL_SELFRG";
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(BUNDLE_SELECTEDFRAGMENT, mSelectedFragment.getSelfNavDrawerItem());
     }
@@ -75,45 +67,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.demo_changelog_main_activity);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // enable ActionBar app icon to behave as action to toggle nav drawer
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            // enable ActionBar app icon to behave as action to toggle nav drawer
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         if (navigationView != null) {
             setupDrawerContent(navigationView);
         }
-
-        // ---------------------------------------------------------------
-        // ...
-        String base64EncodedPublicKey = IabUtil.key;
-
-        // compute your public key and store it in base64EncodedPublicKey
-        mHelper = new IabHelper(this, base64EncodedPublicKey);
-        mHelper.enableDebugLogging(true);
-
-        mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
-            public void onIabSetupFinished(IabResult result) {
-                if (!result.isSuccess()) {
-                    // Oh noes, there was a problem.
-                    Log.d(TAG, "Problem setting up In-app Billing: " + result);
-                    return;
-                }
-
-                // Have we been disposed of in the meantime? If so, quit.
-                if (mHelper == null) return;
-
-                // Hooray, IAB is fully set up!
-                IabUtil.getInstance().retrieveData(mHelper);
-            }
-        });
-
-        //-----------------------------------------------------------------
 
         if (savedInstanceState != null) {
             int mSelectedFragmentIndex = savedInstanceState.getInt(BUNDLE_SELECTEDFRAGMENT);
@@ -124,26 +92,17 @@ public class MainActivity extends AppCompatActivity {
         if (mSelectedFragment != null)
             openFragment(mSelectedFragment);
 
-
-        //-----------------------------------------------------------------
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (mHelper != null) mHelper.dispose();
-        mHelper = null;
     }
 
 
     /**
      * Resolves the fragment
      *
-     * @param itemId
-     * @return
+     * @param itemId itemId
+     * @return return
      */
     private BaseFragment selectFragment(int itemId) {
-        BaseFragment baseFragment = null;
+        BaseFragment baseFragment;
 
         switch (itemId) {
             default:
@@ -173,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Opens the dialog
      *
-     * @param dialogStandardFragment
+     * @param dialogStandardFragment dialogStandardFragment
      */
     private void openDialogFragment(DialogFragment dialogStandardFragment) {
         if (dialogStandardFragment != null) {
@@ -190,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Adds the fragment to MainContent
      *
-     * @param baseFragment
+     * @param baseFragment baseFragment
      */
     private void openFragment(BaseFragment baseFragment) {
         if (baseFragment != null) {
@@ -201,43 +160,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d(TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
-
-        // Pass on the activity result to the helper for handling
-        if (!mHelper.handleActivityResult(requestCode, resultCode, data)) {
-            // not handled, so handle it ourselves (here's where you'd
-            // perform any handling of activity results not related to in-app
-            // billing...
-            super.onActivityResult(requestCode, resultCode, data);
-        } else {
-            Log.d(TAG, "onActivityResult handled by IABUtil.");
-        }
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            mDrawerLayout.openDrawer(GravityCompat.START);
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        menuItem.setChecked(true);
-                        selectNavigationItem(menuItem.getItemId());
-                        mDrawerLayout.closeDrawers();
-                        return true;
-                    }
+                menuItem -> {
+                    menuItem.setChecked(true);
+                    selectNavigationItem(menuItem.getItemId());
+                    mDrawerLayout.closeDrawers();
+                    return true;
                 });
 
         // When the user runs the app for the first time, we want to land them with the
@@ -269,14 +207,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_ex_dialo:
                 openDialogFragment(new DialogMaterialFragment());
                 break;
-            case R.id.nav_other_donate:
-                IabUtil.showBeer(this, mHelper);
-                break;
             case R.id.nav_other_info:
                 Utils.showAbout(this);
                 break;
             case R.id.nav_other_github:
-                String url = "https://github.com/gabrielemariotti/changeloglib/";
+                String url = "https://github.com/weberbox/changeloglib/";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
@@ -287,11 +222,4 @@ public class MainActivity extends AppCompatActivity {
             openFragment(fg);
         }
     }
-
-
-    public IabHelper getHelper() {
-        return mHelper;
-    }
-
-
 }

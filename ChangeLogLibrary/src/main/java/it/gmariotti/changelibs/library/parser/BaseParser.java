@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2013 Gabriele Mariotti.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- ******************************************************************************/
+ **/
 package it.gmariotti.changelibs.library.parser;
 
 import android.content.Context;
@@ -22,13 +22,12 @@ import it.gmariotti.changelibs.library.internal.ChangeLog;
 /**
  * Abstract BaseParser for future implementations.
  *
- *
  * @author Gabriele Mariotti (gabri.mariotti@gmail.com)
  */
 public abstract class BaseParser {
 
     /**
-     *  Context
+     * Context
      */
     protected Context mContext;
 
@@ -44,10 +43,10 @@ public abstract class BaseParser {
     /**
      * Create a new instance for a context.
      *
-     * @param context  current Context
+     * @param context current Context
      */
-    public BaseParser(Context context){
-        this.mContext=context;
+    public BaseParser(Context context) {
+        this.mContext = context;
     }
 
     //--------------------------------------------------------------------------------
@@ -56,8 +55,7 @@ public abstract class BaseParser {
      * Read and Parse the changeLog file and return a new {@link ChangeLog}.
      *
      * @return The content of changelog file
-     *
-     * @throws Exception
+     * @throws Exception exception
      */
     public abstract ChangeLog readChangeLogFile() throws Exception;
 

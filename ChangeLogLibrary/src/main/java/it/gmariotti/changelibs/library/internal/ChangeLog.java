@@ -1,19 +1,21 @@
-/*******************************************************************************
- * Copyright (c) 2013 Gabriele Mariotti.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- ******************************************************************************/
+/*
+ Copyright (c) 2013 Gabriele Mariotti.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
 package it.gmariotti.changelibs.library.internal;
+
+import androidx.annotation.NonNull;
 
 import java.util.LinkedList;
 
@@ -22,6 +24,7 @@ import java.util.LinkedList;
  *
  * @author Gabriele Mariotti (gabri.mariotti@gmail.com)
  */
+@SuppressWarnings("unused")
 public class ChangeLog {
 
     /**
@@ -36,18 +39,16 @@ public class ChangeLog {
 
     //-----------------------------------------------------------------------
 
-    public ChangeLog(){
-        rows=new LinkedList<ChangeLogRow>();
+    public ChangeLog() {
+        rows = new LinkedList<>();
     }
 
     /**
      * Add new {@link ChangeLogRow} to rows
-     *
-     * @param row
      */
-    public void addRow(ChangeLogRow row){
-        if (row!=null){
-            if (rows==null) rows=new LinkedList<ChangeLogRow>();
+    public void addRow(ChangeLogRow row) {
+        if (row != null) {
+            if (rows == null) rows = new LinkedList<>();
             rows.add(row);
         }
     }
@@ -55,23 +56,24 @@ public class ChangeLog {
     /**
      * Clear all rows
      */
-    public void clearAllRows(){
-        rows=new LinkedList<ChangeLogRow>();
+    public void clearAllRows() {
+        rows = new LinkedList<>();
     }
 
 
+    @NonNull
     @Override
     public String toString() {
-        StringBuilder sb=new StringBuilder();
-        sb.append("bulletedList="+bulletedList);
+        StringBuilder sb = new StringBuilder();
+        sb.append("bulletedList=").append(bulletedList);
         sb.append("\n");
-        if (rows!=null){
-            for (ChangeLogRow row:rows){
+        if (rows != null) {
+            for (ChangeLogRow row : rows) {
                 sb.append("row=[");
                 sb.append(row.toString());
                 sb.append("]\n");
             }
-        }else{
+        } else {
             sb.append("rows:none");
         }
         return sb.toString();
@@ -94,8 +96,6 @@ public class ChangeLog {
     public void setRows(LinkedList<ChangeLogRow> rows) {
         this.rows = rows;
     }
-
-
 
 
 }

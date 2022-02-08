@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2013 Gabriele Mariotti.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,21 +12,24 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- ******************************************************************************/
+ **/
 package it.gmariotti.changelibs.library.internal;
+
+import androidx.annotation.NonNull;
 
 /**
  * ChangeLogRow model for a headerRow
  *
  * @author Gabriele Mariotti (gabri.mariotti@gmail.com)
  */
-public class ChangeLogRowHeader extends ChangeLogRow{
+public class ChangeLogRowHeader extends ChangeLogRow {
 
     //-----------------------------------------------------------------------
     // Constructors
     //-----------------------------------------------------------------------
 
-    public ChangeLogRowHeader(){
+    @SuppressWarnings("deprecation")
+    public ChangeLogRowHeader() {
         super();
         setHeader(true);
         setBulletedList(false);
@@ -35,16 +38,18 @@ public class ChangeLogRowHeader extends ChangeLogRow{
 
     //-----------------------------------------------------------------------
 
+    @NonNull
     @Override
     public String toString() {
-        StringBuilder sb=new StringBuilder();
-        sb.append("header="+super.header);
-        sb.append(",");
-        sb.append("versionName="+versionName);
-        sb.append(",");
-        sb.append("changeDate="+changeDate);
 
-        return sb.toString();
+        return "header=" +
+                super.header +
+                "," +
+                "versionName=" +
+                versionName +
+                "," +
+                "changeDate=" +
+                changeDate;
     }
 
 }

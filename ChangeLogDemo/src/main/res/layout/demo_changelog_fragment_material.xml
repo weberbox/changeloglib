@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ * ******************************************************************************
   ~     Copyright (c) 2013 Gabriele Mariotti.
   ~
@@ -17,7 +16,7 @@
   ~    *****************************************************************************
   -->
 
-    <!-- Base Example -->
+<!-- Base Example -->
 <it.gmariotti.changelibs.library.view.ChangeLogRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:chg="http://schemas.android.com/apk/res-auto"
     android:id="@+id/view"
@@ -25,6 +24,5 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     chg:rowHeaderLayoutId="@layout/changelogrowheader_material_layout"
-    chg:rowLayoutId="@layout/changelogrow_material_layout"
-     />
+    chg:rowLayoutId="@layout/changelogrow_material_layout" />
 

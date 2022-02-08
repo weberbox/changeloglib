@@ -43,10 +43,6 @@
             android:icon="@drawable/ic_github"
             android:title="@string/navdrawer_item_github"/>
         <item
-            android:id="@+id/nav_other_donate"
-            android:icon="@drawable/ic_money"
-            android:title="@string/navdrawer_item_donate"/>
-        <item
             android:id="@+id/nav_other_info"
             android:icon="@drawable/ic_l_info"
             android:title="@string/navdrawer_item_info"/>

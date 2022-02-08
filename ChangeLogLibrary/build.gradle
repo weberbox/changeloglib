@@ -1,16 +1,13 @@
-apply plugin: 'com.android.library'
-
-repositories {
-    mavenCentral()
+plugins {
+    id 'com.android.library'
 }
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 7
-        targetSdkVersion 23
+        minSdkVersion 14
+        targetSdkVersion 31
         versionName project.VERSION_NAME
         versionCode Integer.parseInt(project.VERSION_CODE)
     }
@@ -22,9 +19,7 @@ android {
 }
 
 dependencies{
-    compile 'com.android.support:support-v4:23.3.0'
-    compile 'com.android.support:recyclerview-v7:23.3.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
 }
-
-// Used to push in maven
-// apply from: '../maven_push.gradle'

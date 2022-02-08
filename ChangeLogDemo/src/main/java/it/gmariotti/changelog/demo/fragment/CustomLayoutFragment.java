@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2013 Gabriele Mariotti.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,9 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- ******************************************************************************/
+ **/
 package it.gmariotti.changelog.demo.fragment;
-
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,10 +23,9 @@ import android.view.ViewGroup;
 import it.gmariotti.changelog.demo.MainActivity;
 import it.gmariotti.changelog.demo.R;
 
-
 /**
  * ChangeLog Example with custom layout file for header.
- *
+ * <p>
  * Example:
  *
  * <pre>

@@ -1,16 +1,13 @@
-apply plugin: 'com.android.application'
-
-repositories {
-    mavenCentral()
+plugins {
+    id 'com.android.application'
 }
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 7
-        targetSdkVersion 23
+        minSdkVersion 14
+        targetSdkVersion 31
         versionName project.VERSION_NAME
         versionCode Integer.parseInt(project.VERSION_CODE)
     }
@@ -40,21 +37,22 @@ android {
 
 dependencies {
     // ChangeLog Library
-    compile project(':ChangeLogLibrary')
+    implementation project(':ChangeLogLibrary')
     // Support Libraries
-    compile 'com.android.support:support-v4:23.3.0'
-    compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.android.support:design:23.3.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'com.android.billingclient:billing:4.0.0'
     //To test layout
-    compile 'org.lucasr.dspec:dspec:0.1.1'
+    implementation 'org.lucasr.dspec:dspec:0.1.1'
 }
 
-def Properties props = new Properties()
+Properties props = new Properties()
 def propFile = file('../signing.properties')
-if (propFile.canRead()){
+if (propFile.canRead()) {
     props.load(new FileInputStream(propFile))
 
-    if (props!=null && props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD') &&
+    if (props != null && props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD') &&
             props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
 
         println 'RELEASE BUILD SIGNING'
@@ -68,7 +66,7 @@ if (propFile.canRead()){
 
         android.buildTypes.release.signingConfig = null
     }
-}else {
+} else {
     println 'RELEASE BUILD NOT FOUND SIGNING FILE'
     android.buildTypes.release.signingConfig = null
 }

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2013 Gabriele Mariotti.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,10 +12,12 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- ******************************************************************************/
+ **/
 package it.gmariotti.changelibs.library.internal;
 
 import android.content.Context;
+
+import androidx.annotation.NonNull;
 
 import it.gmariotti.changelibs.R;
 
@@ -24,6 +26,7 @@ import it.gmariotti.changelibs.R;
  *
  * @author Gabriele Mariotti (gabri.mariotti@gmail.com)
  */
+@SuppressWarnings("unused")
 public class ChangeLogRow {
 
     /**
@@ -72,6 +75,7 @@ public class ChangeLogRow {
 
     /**
      * Special marker in change text. It is optional
+     *
      * @deprecated use custom tags as changelogbug or changelogimprovement
      */
     private String changeTextTitle;
@@ -91,7 +95,7 @@ public class ChangeLogRow {
     /**
      * Replace special tags [b] [i]
      *
-     * @param changeLogText
+     * @param changeLogText text
      */
     public void parseChangeText(String changeLogText) {
         if (changeLogText != null) {
@@ -100,21 +104,23 @@ public class ChangeLogRow {
         setChangeText(changeLogText);
     }
 
+    @NonNull
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("header=" + header);
-        sb.append(",");
-        sb.append("versionName=" + versionName);
-        sb.append(",");
-        sb.append("versionCode=" + versionCode);
-        sb.append(",");
-        sb.append("bulletedList=" + bulletedList);
-        sb.append(",");
-        sb.append("changeText=" + changeText);
-        //sb.append(",");
-        //sb.append("changeTextTitle="+changeTextTitle);
-        return sb.toString();
+        return "header=" +
+                header +
+                "," +
+                "versionName=" +
+                versionName +
+                "," +
+                "versionCode=" +
+                versionCode +
+                "," +
+                "bulletedList=" +
+                bulletedList +
+                "," +
+                "changeText=" +
+                changeText;
     }
 
     //-------------------------------------------------------------------------------------------------------------------
@@ -181,13 +187,15 @@ public class ChangeLogRow {
     /**
      * @deprecated use custom tags as changelogbug or changelogimprovement
      */
+    @SuppressWarnings("deprecation")
     public String getChangeTextTitle() {
         return changeTextTitle;
     }
 
     /**
-     *  @deprecated use custom tags as changelogbug or changelogimprovement
+     * @deprecated use custom tags as changelogbug or changelogimprovement
      */
+    @SuppressWarnings("deprecation")
     public void setChangeTextTitle(String changeTextTitle) {
         this.changeTextTitle = changeTextTitle;
     }

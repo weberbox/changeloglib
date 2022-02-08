@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2013 Gabriele Mariotti.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- ******************************************************************************/
+ **/
 package it.gmariotti.changelog.demo;
 
 import android.os.Bundle;
@@ -26,6 +26,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import java.lang.reflect.Field;
 
 import it.gmariotti.changelog.demo.fragment.BaseFragment;
@@ -34,16 +36,15 @@ import it.gmariotti.changelibs.library.parser.XmlParser;
 
 /**
  * Debug Activity for test parsing
- *
+ * <p>
  * Created by gabriele on 20/08/13.
  */
 public class DebugParseFragment extends BaseFragment {
 
     private Spinner mSpinner;
     private TextView mTextChangeLog;
-    private ArrayAdapter<Integer> mAdapter;
 
-    private static String TAG= "DebugParseActivity";
+    private static final String TAG = "DebugParseActivity";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,8 +66,8 @@ public class DebugParseFragment extends BaseFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mSpinner = (Spinner) getActivity().findViewById(R.id.chgfiles_spinner);
-        mTextChangeLog= (TextView) getActivity().findViewById(R.id.textChangeLog);
+        mSpinner = requireActivity().findViewById(R.id.chgfiles_spinner);
+        mTextChangeLog = requireActivity().findViewById(R.id.textChangeLog);
 
         populateSpinner();
     }
@@ -75,61 +76,60 @@ public class DebugParseFragment extends BaseFragment {
     /**
      * Populate spinner with changelog files in res/raw
      */
-    private void populateSpinner(){
+    private void populateSpinner() {
 
-            Field[] fields=R.raw.class.getFields();
-            ResourceSpinner resources[]=null;
-            if (fields!=null){
-                resources= new ResourceSpinner[fields.length];
-                for(int count=0; count < fields.length; count++){
-                    try {
-                        ResourceSpinner sp=new ResourceSpinner(fields[count].getInt(fields[count]),fields[count].getName());
-                        resources[count]=sp;
-                    } catch (IllegalAccessException e) {
-                        Log.e(TAG,"Error in populate spinner",e);
-                    }
-                }
+        Field[] fields = R.raw.class.getFields();
+        ResourceSpinner[] resources;
+        resources = new ResourceSpinner[fields.length];
+        for (int count = 0; count < fields.length; count++) {
+            try {
+                ResourceSpinner sp = new ResourceSpinner(fields[count].getInt(fields[count]),
+                        fields[count].getName());
+                resources[count] = sp;
+            } catch (IllegalAccessException e) {
+                Log.e(TAG, "Error in populate spinner", e);
+            }
+        }
+
+        // Create an ArrayAdapter using a default spinner layout
+        ArrayAdapter<ResourceSpinner> adapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_spinner_item, resources);
+
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        mSpinner.setAdapter(adapter);
+
+        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //Integer itemSelected=(Integer)parent.getItemAtPosition(position);
+                ResourceSpinner itemSelected = (ResourceSpinner) parent.getItemAtPosition(position);
+                if (itemSelected != null)
+                    parseFile(itemSelected.resourceId);
             }
 
-            if (resources!=null){
-                // Create an ArrayAdapter using a default spinner layout
-                ArrayAdapter<ResourceSpinner> adapter = new ArrayAdapter<ResourceSpinner>(getActivity(),android.R.layout.simple_spinner_item,resources);
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
-                // Specify the layout to use when the list of choices appears
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                // Apply the adapter to the spinner
-                mSpinner.setAdapter(adapter);
-
-                mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        //Integer itemSelected=(Integer)parent.getItemAtPosition(position);
-                        ResourceSpinner itemSelected= (ResourceSpinner) parent.getItemAtPosition(position);
-                        if (itemSelected!=null)
-                            parseFile(itemSelected.resourceId);
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
-                });
             }
+        });
     }
 
     /**
      *
      */
-    private class ResourceSpinner{
+    private static class ResourceSpinner {
 
         int resourceId;
         String resourceName;
 
-        ResourceSpinner(int resourceId,String resourceName){
-            this.resourceId=resourceId;
-            this.resourceName=resourceName;
+        ResourceSpinner(int resourceId, String resourceName) {
+            this.resourceId = resourceId;
+            this.resourceName = resourceName;
         }
 
+        @NonNull
         @Override
         public String toString() {
             return resourceName;
@@ -137,22 +137,21 @@ public class DebugParseFragment extends BaseFragment {
     }
 
 
-
     /**
      * Parse file
      *
-     * @param rawFileResourceId
+     * @param rawFileResourceId rawFileResourceId
      */
-    private void parseFile(int rawFileResourceId){
+    private void parseFile(int rawFileResourceId) {
 
-        XmlParser parse = new XmlParser(this.getActivity(),rawFileResourceId);
-        try{
-            ChangeLog log=parse.readChangeLogFile();
-            if (mTextChangeLog!=null)
+        XmlParser parse = new XmlParser(this.getActivity(), rawFileResourceId);
+        try {
+            ChangeLog log = parse.readChangeLogFile();
+            if (mTextChangeLog != null)
                 mTextChangeLog.setText(log.toString());
-        }catch (Exception e){
-            Log.e(TAG,getString(R.string.demo_changelog_error_debug) , e);
-            Toast.makeText(this.getActivity(),R.string.demo_changelog_error_debug,Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Log.e(TAG, getString(R.string.demo_changelog_error_debug), e);
+            Toast.makeText(this.getActivity(), R.string.demo_changelog_error_debug, Toast.LENGTH_LONG).show();
         }
     }
 

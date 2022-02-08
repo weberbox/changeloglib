@@ -17,15 +17,12 @@
  */
 package it.gmariotti.changelog.demo.fragment;
 
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import it.gmariotti.changelog.demo.MainActivity;
 import it.gmariotti.changelog.demo.R;
-
 
 /**
  * ChangeLog Example with standard library.

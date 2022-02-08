@@ -6,8 +6,6 @@
     <uses-permission android:name="com.android.vending.BILLING" />
 
     <uses-sdk
-        android:minSdkVersion="7"
-        android:targetSdkVersion="23"
         tools:overrideLibrary="org.lucasr.dspec"/>
 
     <application
@@ -15,7 +13,8 @@
         android:label="@string/demo_changelog_app_name"
         android:theme="@style/Theme.ChangeLogDemo" >
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
