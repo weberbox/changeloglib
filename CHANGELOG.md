@@ -1,6 +1,13 @@
 Change Log
 ===============================================================================
 
+Version 3.0.0 *(2021-02-08)*
+----------------------------
+* Migrate to AndroidX
+* Migrate to AppCompat
+* Updated to gradle 7.1.1
+* Cleanup
+
 Version 2.1.0 *(2016-04-12)*
 ----------------------------
  * Added support for last support libraries 23.3.0

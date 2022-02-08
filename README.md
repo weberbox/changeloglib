@@ -2,18 +2,12 @@
 
 ChangeLog Library provides an easy way to display a change log in your Android app.
 
-Travis master: [![Build Status](https://travis-ci.org/gabrielemariotti/changeloglib.svg?branch=master)](https://travis-ci.org/gabrielemariotti/changeloglib)
-Travis dev: [![Build Status](https://travis-ci.org/gabrielemariotti/changeloglib.svg?branch=dev)](https://travis-ci.org/gabrielemariotti/changeloglib)
-
 ![Screen](/ChangeLogDemo/images/screen2.png)
-
 
 ---
 ## Examples
 
 * **Sample** application: The demo is a showcase of the functionality of the library.
-
-	 [![Get it on Google Play](http://www.android.com/images/brand/get_it_on_play_logo_small.png)](https://play.google.com/store/apps/details?id=it.gmariotti.changelog.demo)
 
 * Browse the [source code of the sample application](/ChangeLogDemo) for a complete example of use.
 
@@ -100,25 +94,13 @@ Last, if you would like a multi language changelog, you just have to put the tra
 Credits
 -------
 
-Author: Gabriele Mariotti (gabri.mariotti@gmail.com)
-
-<a href="https://plus.google.com/u/0/114432517923423045208">
-  <img alt="Follow me on Google+"
-       src="https://github.com/gabrielemariotti/changeloglib/raw/master/ChangeLogDemo/images/g+64.png" />
-</a>
-<a href="https://twitter.com/GabMarioPower">
-  <img alt="Follow me on Twitter"
-       src="https://github.com/gabrielemariotti/changeloglib/raw/master/ChangeLogDemo/images/twitter64.png" />
-</a>
-<a href="http://it.linkedin.com/in/gabrielemariotti">
-  <img alt="Follow me on LinkedIn"
-       src="https://github.com/gabrielemariotti/changeloglib/raw/master/ChangeLogDemo/images/linkedin.png" />
-</a>
+Original Author: Gabriele Mariotti (gabri.mariotti@gmail.com)
 
 License
 -------
 
     Copyright 2013-2015 Gabriele Mariotti
+	Copyright 2021 James Weber
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
