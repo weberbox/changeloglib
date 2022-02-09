@@ -6,32 +6,32 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_ex_standard"
-            android:icon="@drawable/ic_launcher"
+            android:icon="@drawable/ic_list"
             android:title="@string/navdrawer_item_standard"/>
 
         <item
             android:id="@+id/nav_ex_material"
-            android:icon="@drawable/ic_launcher"
+            android:icon="@drawable/ic_list"
             android:title="@string/navdrawer_item_material"/>
         <item
             android:id="@+id/nav_ex_dialog"
-            android:icon="@drawable/ic_launcher"
-            android:title="@string/navdrawer_item_dialog"/>
+            android:icon="@drawable/ic_list"
+            android:title="@string/demo_changelog_title_materialdialog"/>
         <item
             android:id="@+id/nav_ex_without_bull"
-            android:icon="@drawable/ic_launcher"
+            android:icon="@drawable/ic_list"
             android:title="@string/navdrawer_item_without_bullter"/>
         <item
             android:id="@+id/nav_ex_custom_xml"
-            android:icon="@drawable/ic_launcher"
+            android:icon="@drawable/ic_list"
             android:title="@string/navdrawer_item_custom_xml"/>
         <item
             android:id="@+id/nav_ex_custom_header"
-            android:icon="@drawable/ic_launcher"
+            android:icon="@drawable/ic_list"
             android:title="@string/navdrawer_item_custom_header"/>
         <item
             android:id="@+id/nav_ex_custom_row"
-            android:icon="@drawable/ic_launcher"
+            android:icon="@drawable/ic_list"
             android:title="@string/navdrawer_item_custom_row"/>
     </group>
 
@@ -44,7 +44,7 @@
             android:title="@string/navdrawer_item_github"/>
         <item
             android:id="@+id/nav_other_info"
-            android:icon="@drawable/ic_l_info"
+            android:icon="@drawable/ic_info"
             android:title="@string/navdrawer_item_info"/>
     </group>
 

@@ -48,7 +48,7 @@ public class DialogMaterialFragment extends DialogFragment {
                 R.layout.demo_fragment_dialogmaterial, null);
 
         return new AlertDialog.Builder(requireActivity(), R.style.AppCompatAlertDialogStyle)
-                .setTitle(R.string.demo_changelog_title_standarddialog)
+                .setTitle(R.string.demo_changelog_title_materialdialog)
                 .setView(chgList)
                 .setPositiveButton(R.string.about_ok,
                         (dialog, whichButton) -> dialog.dismiss()

@@ -162,7 +162,7 @@ public class ChangeLogAdapter extends ArrayAdapter<ChangeLogRow> {
                         viewHolder.text.setMovementMethod(LinkMovementMethod.getInstance());
                     }
                     if (viewHolder.bulletText != null) {
-                        if (item.isBulletedList()) {
+                        if (item.isBulletedList() && item.getLogType() == ChangeLogRow.DEFAULT) {
                             viewHolder.bulletText.setVisibility(View.VISIBLE);
                         } else {
                             viewHolder.bulletText.setVisibility(View.GONE);
@@ -172,22 +172,22 @@ public class ChangeLogAdapter extends ArrayAdapter<ChangeLogRow> {
                         switch (item.getLogType()) {
                             case ChangeLogRow.IMPROVEMENT:
                                 viewHolder.imageTag.setImageDrawable(
-                                        ContextCompat.getDrawable(context, R.drawable.impr_icon));
+                                        ContextCompat.getDrawable(context, R.drawable.ic_imp_tag));
                                 viewHolder.imageTag.setVisibility(View.VISIBLE);
                                 break;
                             case ChangeLogRow.FIX:
                                 viewHolder.imageTag.setImageDrawable(
-                                        ContextCompat.getDrawable(context, R.drawable.fix_icon));
+                                        ContextCompat.getDrawable(context, R.drawable.ic_fix_tag));
                                 viewHolder.imageTag.setVisibility(View.VISIBLE);
                                 break;
                             case ChangeLogRow.NOTE:
                                 viewHolder.imageTag.setImageDrawable(
-                                        ContextCompat.getDrawable(context, R.drawable.note_icon));
+                                        ContextCompat.getDrawable(context, R.drawable.ic_note_tag));
                                 viewHolder.imageTag.setVisibility(View.VISIBLE);
                                 break;
                             case ChangeLogRow.NEW:
                                 viewHolder.imageTag.setImageDrawable(
-                                        ContextCompat.getDrawable(context, R.drawable.new_icon));
+                                        ContextCompat.getDrawable(context, R.drawable.ic_new_tag));
                                 viewHolder.imageTag.setVisibility(View.VISIBLE);
                                 break;
                             case ChangeLogRow.DEFAULT:

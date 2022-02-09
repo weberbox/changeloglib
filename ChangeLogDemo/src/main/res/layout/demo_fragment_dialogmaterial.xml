@@ -15,7 +15,6 @@
   ~     limitations under the License.
   ~    *****************************************************************************
   -->
-
 <com.weberbox.changelibs.library.view.ChangeLogRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/view"
@@ -23,5 +22,5 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:paddingTop="8dp"
-    app:chglib_row_header_layout="@layout/changelog_header_material_layout"
-    app:chglib_row_layout="@layout/changelog_row_material_layout" />
+    app:chglib_row_header_layout="@layout/demo_header_material_layout"
+    app:chglib_row_layout="@layout/demo_row_material_layout" />

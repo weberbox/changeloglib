@@ -29,6 +29,7 @@
     <string name="demo_changelog_title_debug">Debug</string>
     <string name="demo_changelog_title_changelog">Change Log</string>
     <string name="demo_changelog_title_standarddialog">Standard Dialog Example</string>
+    <string name="demo_changelog_title_materialdialog">Material Dialog Example</string>
     <string name="navdrawer_item_standard">Standard example</string>
     <string name="navdrawer_item_material">Material example</string>
     <string name="navdrawer_item_dialog">Standard Dialog</string>

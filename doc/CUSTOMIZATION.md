@@ -26,20 +26,20 @@ You can use your own xml layout with `chg:rowHeaderLayoutId` attribute in `Chang
     <!-- Custom xml file Example and custom header layout -->
     <com.weberbox.changelibs.library.view.ChangeLogRecyclerView
           xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:chg="http://schemas.android.com/apk/res-auto"
+          xmlns:app="http://schemas.android.com/apk/res-auto"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          chg:rowHeaderLayoutId="@layout/demo_changelogrowheader_layout"
+          app:chglib_row_header_layout="@layout/demo_changelogrowheader_layout"
     />
 ```
 
-The quickest way to start with this would be to copy the [`changelogrowheader_layout.xml`](/ChangeLogLibrary/src/main/res/layout-v14/changelogrowheader_layout.xml) layout resource file from this project into your own and modify its contents.<br/>
+The quickest way to start with this would be to copy the [`changelogrowheader_layout.xml`](/ChangeLogLibrary/src/main/res/layout/changelog_header_layout.xml) layout resource file from this project into your own and modify its contents.<br/>
 There's a specific set of views you need to have in your layout:
 
 1. A `TextView` with the ID `chg_headerVersion` that display the Version Number
 2. A `TextView` with the ID `chg_headerDate` that display the Version Date
 
-You can find an example in [`demo_changelogrowheader_layout.xml`](/ChangeLogDemo/src/main/res/layout/demo_changelogrowheader_layout.xml)
+You can find an example in [`demo_changelogrowheader_layout.xml`](/ChangeLogDemo/src/main/res/layout/demo_header_layout.xml)
 
 ### Custom Row Layout
 
@@ -51,26 +51,26 @@ You can use your own xml layout with `chg:rowLayoutId` attribute in `ChangeLogRe
     <!-- Custom xml file Example and custom header layout -->
     <com.weberbox.changelibs.library.view.ChangeLogRecyclerView
           xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:chg="http://schemas.android.com/apk/res-auto"
+          xmlns:app="http://schemas.android.com/apk/res-auto"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          chg:rowLayoutId="@layout/demo_changelogrow_layout"
+          app:chglib_row_layout="@layout/demo_changelogrow_layout"
     />
 ```
-The quickest way to start with this would be to copy the [`changelogrow_layout.xml`](/ChangeLogLibrary/src/main/res/layout-v14/changelogrow_layout.xml) layout resource file from this project into your own and modify its contents.<br/>
+The quickest way to start with this would be to copy the [`changelogrow_layout.xml`](/ChangeLogLibrary/src/main/res/layout/changelog_row_layout.xml) layout resource file from this project into your own and modify its contents.<br/>
 There's a specific set of views you need to have in your layout:
 
 1. A `TextView` with the ID `chg_textbullet` that display the bullet point
 2. A `TextView` with the ID `chg_text` that display the actual text that will be displayed as a change in your List
 
-You can find an example in [`demo_changelogrow_layout.xml`](/ChangeLogDemo/src/main/res/layout/demo_changelogrow_layout.xml)
+You can find an example in [`demo_changelogrow_layout.xml`](/ChangeLogDemo/src/main/res/layout/demo_row_layout.xml)
 
 ### Layouts with Material Specs
 
 Library contains also 2 layouts with **Material specs and metrics**:
 
-- [`res/layout/changelogrow_material_layout.xml`](/ChangeLogLibrary/src/main/res/layout-v14/changelogrow_material_layout.xml) l XML layout for each row.
-- [`res/layout/changelogrowheader_material_layout.xml`](/ChangeLogLibrary/src/main/res/layout-v14/changelogrowheader_material_layout.xml) l XML layout for each header.
+- [`res/layout/changelogrow_material_layout.xml`](/ChangeLogLibrary/src/main/res/layout/changelog_row_material_layout.xml) l XML layout for each row.
+- [`res/layout/changelogrowheader_material_layout.xml`](/ChangeLogLibrary/src/main/res/layout/changelog_header_material_layout.xml) l XML layout for each header.
 
 You can use them with a simple:
 
@@ -81,13 +81,12 @@ You can use them with a simple:
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/view"
-        chg:rowHeaderLayoutId="@layout/changelogrowheader_material_layout"
-        chg:rowLayoutId="@layout/changelogrow_material_layout"
-        android:layout_gravity="center"
-        />
+        app:chglib_row_header_layout="@layout/changelogrowheader_material_layout"
+        app:chglib_row_layout="@layout/changelogrow_material_layout"
+        android:layout_gravity="center" />
 ```
 
-You can find an example in [`demo_changelogrow_fragment_material.xml`](/ChangeLogDemo/src/main/res/layout/demo_changelog_fragment_material.xml)
+You can find an example in [`demo_changelogrow_fragment_material.xml`](/ChangeLogDemo/src/main/res/layout/demo_fragment_material.xml)
 You can find a screenshot [here](/ChangeLogDemo/README.md#material-specs).
 
 
@@ -101,14 +100,13 @@ You can use your own file with `chg:changeLogFileResourceId` attribute in `Chang
     <!-- Custom xml file Example and custom header layout -->
     <com.weberbox.changelibs.library.view.ChangeLogRecyclerView
           xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:chg="http://schemas.android.com/apk/res-auto"
+          xmlns:app="http://schemas.android.com/apk/res-auto"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          chg:changeLogFileResourceId="@raw/custom_changelog"
-    />
+          app:chglib_log_file_resource="@raw/custom_changelog" />
 ```
 
-You can find an example in [`demo_changelogrow_fragment_customlayout.xml`](/ChangeLogDemo/src/main/res/layout/demo_changelog_fragment_customlayout.xml)
+You can find an example in [`demo_changelogrow_fragment_customlayout.xml`](/ChangeLogDemo/src/main/res/layout/demo_fragment_customlayout.xml)
 
 ### Bullet Point
 The quickest way to customize this character is to specify this resource in your `strings.xml`.
@@ -133,9 +131,9 @@ You can use some html text markup as bold and italic in your changelog.xml
 
 ``` xml
    <changelogversion versionName="0.9" changeDate="Aug 11,2013">
-        <changelogtext>[b]New![/b] Add new attrs to customize header and row layout</changelogtext>
-        <changelogtext>Fixed log while [i]parsing[/i] </changelogtext>
-        <changelogtext>performance &lt;b&gt;improvement&lt;/b&gt;</changelogtext>
+        <changelogtext logType="new">[b]New![/b] Add new attrs to customize header and row layout</changelogtext>
+        <changelogtext logType="fix">Fixed log while [i]parsing[/i] </changelogtext>
+        <changelogtext logType="imp">performance &lt;b&gt;improvement&lt;/b&gt;</changelogtext>
         ....
 ```
 You can use:
@@ -143,19 +141,19 @@ You can use:
 1. `[b] text [/b]` for a <b>bold style</b>, or `&lt;b&gt; text &lt;/b&gt;`
 2. `[i] text [/i]` for an <i>italic style</i>, or `&lt;b&gt; text &lt;/i&gt;`
 
-If you need a hiperlink you can obtain it with:
+If you need a hyperlink you can obtain it with:
 
-```xml
-    <changelogbug>Fixed a [a href="http://www.google.it"]number[/a] of bugs with the
-              Gmail and SMS extensions</changelogbug>
+``` xml
+    <changelogtext logType="fix">Fixed a [a href="http://www.google.it"]number[/a] of bugs with the
+              Gmail and SMS extensions</changelogtext>
 ```
 
 Of course you can use standard android notation:
 
-```xml
-     <changelogimprovement><![CDATA[Option to specify a <a href="http://www.google.it">manual</a>
-                               location for weather]]></changelogimprovement>
-     <changelogtext><![CDATA[<b><font color=red>New!</font></b> Translations for Greek,
+``` xml
+     <changelogtext logType="note"><![CDATA[Option to specify a <a href="http://www.google.it">manual</a>
+                               location for weather]]></changelogtext>
+     <changelogtext logType="imp"><![CDATA[<b><font color=red>New!</font></b> Translations for Greek,
                    Dutch and Brazilian Portuguese]]>
      </changelogtext>
 ```
@@ -185,11 +183,10 @@ You can use a url link to download your xml file with `chg:changeLogFileResource
     <!-- Custom xml file Example and custom header layout -->
     <com.weberbox.changelibs.library.view.ChangeLogRecyclerView
           xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:chg="http://schemas.android.com/apk/res-auto"
+          xmlns:app="http://schemas.android.com/apk/res-auto"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          chg:changeLogFileResourceUrl="http://mydomain.org/changelog.xml"
-    />
+          app:chglib_log_file_resource_url="http://mydomain.org/changelog.xml" />
 ```
 
 Pay attention:
@@ -206,10 +203,10 @@ You can use 2 custom changelogtext tags that will pre-pend the change log text w
 
 ``` xml
    <changelogversion versionName="0.9" changeDate="Aug 11,2013">
-        <changelogtext>[b]New![/b] Add new attrs to customize header and row layout</changelogtext>
-        <changelogimprovement>Option to specify a manual location for weather</changelogimprovement>
-        <changelogtext>performance &lt;b&gt;improvement&lt;/b&gt;</changelogtext>
-        <changelogbug>Fixed a number of bugs with the Gmail and SMS extensions</changelogbug>
+        <changelogtext logType="def">[b]New![/b] Add new attrs to customize header and row layout</changelogtext>
+        <changelogtext logType="def">Option to specify a manual location for weather</changelogimprovement>
+        <changelogtext logType="def">performance &lt;b&gt;improvement&lt;/b&gt;</changelogtext>
+        <changelogtext logType="def">Fixed a number of bugs with the Gmail and SMS extensions</changelogbug>
    </changelogversion>
 ```
 

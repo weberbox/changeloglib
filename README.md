@@ -70,18 +70,18 @@ It automatically searches for [`res/raw/changelog.xml`](/ChangeLogLibrary/src/ma
 
 ``` xml
 <?xml version="1.0" encoding="utf-8"?>
-<changelog bulletedList="true">
+<changelog bulletedList="false">
 
-    <changelogversion versionName="1.0" changeDate="Aug 26,2013">
-            <changelogtext>Initial release.</changelogtext>
+    <changelogversion versionName="1.0" changeDate="Aug 26,2013" currentVersion="true">
+            <changelogtext>Initial release</changelogtext>
     </changelogversion>
 
     <changelogversion versionName="0.9" changeDate="Aug 11,2013">
-        <changelogtext>[b]New![/b] Add new attrs to customize header and row layout</changelogtext>
-        <changelogtext>Fixed log while parsing </changelogtext>
-        <changelogtext>Add support for html markup</changelogtext>
-        <changelogtext>Add bullet point in </changelogtext>
-        <changelogtext>Support for customized xml filename</changelogtext>
+        <changelogtext logType="new">[b]New![/b] Add new attrs to customize header and row layout</changelogtext>
+        <changelogtext logType="fix">Fixed log while parsing</changelogtext>
+        <changelogtext logType="new">Add support for html markup</changelogtext>
+        <changelogtext logType="note">Add bullet point in</changelogtext>
+        <changelogtext logType="imp">Support for customized xml filename</changelogtext>
     </changelogversion>
 
 </changelog>

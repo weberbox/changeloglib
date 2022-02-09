@@ -32,8 +32,8 @@
         android:drawablePadding="8dp"
         android:gravity="center_vertical"
         android:textSize="16sp"
-        app:drawableLeftCompat="@drawable/ic_launcher"
-        app:drawableStartCompat="@drawable/ic_launcher"
+        app:drawableLeftCompat="@mipmap/ic_launcher"
+        app:drawableStartCompat="@mipmap/ic_launcher"
         app:fontFamily="sans-serif-condensed" />
 
     <ScrollView

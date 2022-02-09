@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<changelog bulletedList="false">
+<changelog bulletedList="true">
 
     <changelogversion versionName="1.5" changeDate="" currentVersion="true">
         <changelogtext logType="new">[b]New![/b] Use DashClock with Android 4.2's Daydream feature; great for use with desktop docks!</changelogtext>
