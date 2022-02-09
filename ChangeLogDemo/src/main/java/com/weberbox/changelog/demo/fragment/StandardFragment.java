@@ -32,7 +32,7 @@ public class StandardFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.demo_changelog_fragment_standard, container, false);
+        return inflater.inflate(R.layout.demo_fragment_standard, container, false);
     }
 
     @Override

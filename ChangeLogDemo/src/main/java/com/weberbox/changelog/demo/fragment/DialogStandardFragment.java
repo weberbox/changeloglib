@@ -44,7 +44,7 @@ public class DialogStandardFragment extends DialogFragment {
         LayoutInflater layoutInflater = (LayoutInflater) requireActivity().getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
         ChangeLogRecyclerView chgList = (ChangeLogRecyclerView) layoutInflater.inflate(
-                R.layout.demo_changelog_fragment_dialogstandard, null);
+                R.layout.demo_fragment_dialogstandard, null);
 
         return new AlertDialog.Builder(requireActivity(), R.style.AppCompatAlertDialogStyle)
                 .setTitle(R.string.demo_changelog_title_standarddialog)

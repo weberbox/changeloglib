@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2013 Gabriele Mariotti.
+ * Copyright (c) 2021 James Weber.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,16 +16,13 @@
  **/
 package com.weberbox.changelibs.library.internal;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
-
-import com.weberbox.changelibs.R;
 
 /**
  * ChangeLogRow model
  *
  * @author Gabriele Mariotti (gabri.mariotti@gmail.com)
+ * @author James Weber
  */
 @SuppressWarnings("unused")
 public class ChangeLogRow {
@@ -35,14 +33,25 @@ public class ChangeLogRow {
     public static final int DEFAULT = 0;
 
     /**
-     * BugFix type
-     */
-    public static final int BUGFIX = 1;
-
-    /**
      * Improvement type
      */
-    public static final int IMPROVEMENT = 2;
+    public static final int IMPROVEMENT = 1;
+
+    /**
+     * Fix type
+     */
+    public static final int FIX = 2;
+
+    /**
+     * Note type
+     */
+    public static final int NOTE = 3;
+
+    /**
+     * New type
+     */
+    public static final int NEW = 4;
+
 
     //-------------------------------------------------------------------------------------------------------------------
 
@@ -52,12 +61,12 @@ public class ChangeLogRow {
     protected boolean header;
 
     /**
-     * This corresponds to the android:versionName attribute in your manifest file. It is a required data
+     * This corresponds to the android:versionName attribute in your manifest file. It is required
      */
     protected String versionName;
 
     /**
-     * This corresponds to the android:versionCode attribute in your manifest file. It is an optional data.
+     * This corresponds to the android:versionCode attribute in your manifest file. It is optional
      */
     protected int versionCode;
 
@@ -74,11 +83,9 @@ public class ChangeLogRow {
     private boolean bulletedList;
 
     /**
-     * Special marker in change text. It is optional
-     *
-     * @deprecated use custom tags as changelogbug or changelogimprovement
+     * If this is the current version. Removes top padding for first list item
      */
-    private String changeTextTitle;
+    private boolean currentVersion;
 
     /**
      * Contains the actual text that will be displayed in your change log. It is required
@@ -142,26 +149,16 @@ public class ChangeLogRow {
         this.bulletedList = bulletedList;
     }
 
-    public String getChangeText() {
-        return changeText;
+    public boolean isCurrentVersion() {
+        return currentVersion;
     }
 
-    public String getChangeText(Context context) {
-        if (context == null)
-            return getChangeText();
+    public void setCurrentVersion(boolean currentVersion) {
+        this.currentVersion = currentVersion;
+    }
 
-        String prefix = "";
-        switch (type) {
-            case BUGFIX:
-                prefix = context.getResources().getString(R.string.changelog_row_prefix_bug);
-                prefix = prefix.replaceAll("\\[", "<").replaceAll("\\]", ">");
-                break;
-            case IMPROVEMENT:
-                prefix = context.getResources().getString(R.string.changelog_row_prefix_improvement);
-                prefix = prefix.replaceAll("\\[", "<").replaceAll("\\]", ">");
-                break;
-        }
-        return prefix + " " + changeText;
+    public String getChangeText() {
+        return changeText;
     }
 
     public void setChangeText(String changeText) {
@@ -184,22 +181,6 @@ public class ChangeLogRow {
         this.versionCode = versionCode;
     }
 
-    /**
-     * @deprecated use custom tags as changelogbug or changelogimprovement
-     */
-    @SuppressWarnings("deprecation")
-    public String getChangeTextTitle() {
-        return changeTextTitle;
-    }
-
-    /**
-     * @deprecated use custom tags as changelogbug or changelogimprovement
-     */
-    @SuppressWarnings("deprecation")
-    public void setChangeTextTitle(String changeTextTitle) {
-        this.changeTextTitle = changeTextTitle;
-    }
-
     public String getChangeDate() {
         return changeDate;
     }
@@ -208,7 +189,11 @@ public class ChangeLogRow {
         this.changeDate = changeDate;
     }
 
-    public void setType(int type) {
+    public int getLogType() {
+        return type;
+    }
+
+    public void setLogType(int type) {
         this.type = type;
     }
 

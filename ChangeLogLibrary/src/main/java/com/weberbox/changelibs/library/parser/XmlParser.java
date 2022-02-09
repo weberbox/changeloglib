@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2013 Gabriele Mariotti.
+ * Copyright (c) 2021 James Weber.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +20,13 @@ import android.content.Context;
 import android.util.Log;
 import android.util.Xml;
 
+import com.weberbox.changelibs.library.Constants;
+import com.weberbox.changelibs.library.Util;
+import com.weberbox.changelibs.library.internal.ChangeLog;
 import com.weberbox.changelibs.library.internal.ChangeLogAdapter;
 import com.weberbox.changelibs.library.internal.ChangeLogException;
 import com.weberbox.changelibs.library.internal.ChangeLogRow;
+import com.weberbox.changelibs.library.internal.ChangeLogRowHeader;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -29,79 +34,31 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
-import com.weberbox.changelibs.library.Constants;
-import com.weberbox.changelibs.library.Util;
-import com.weberbox.changelibs.library.internal.ChangeLog;
-import com.weberbox.changelibs.library.internal.ChangeLogRowHeader;
-
-/**
- * Read and parse res/raw/changelog.xml.
- * Example:
- *
- * <pre>
- *    XmlParser parse = new XmlParser(this);
- *    ChangeLog log=parse.readChangeLogFile();
- * </pre>
- * <p>
- * If you want to use a custom xml file, you can use:
- * <pre>
- *    XmlParser parse = new XmlParser(this,R.raw.mycustomfile);
- *    ChangeLog log=parse.readChangeLogFile();
- * </pre>
- * <p>
- * It is a example for changelog.xml
- * <pre>
- *  <?xml version="1.0" encoding="utf-8"?>
- *       <changelog bulletedList=false>
- *            <changelogversion versionName="1.2" changeDate="20/01/2013">
- *                 <changelogtext>new feature to share data</changelogtext>
- *                 <changelogtext>performance improvement</changelogtext>
- *            </changelogversion>
- *            <changelogversion versionName="1.1" changeDate="13/01/2013">
- *                 <changelogtext>issue on wifi connection</changelogtext>*
- *            </changelogversion>*
- *       </changelog>
- * </pre>
- *
- * @author Gabriele Mariotti (gabri.mariotti@gmail.com)
- */
 @SuppressWarnings("unused")
 public class XmlParser extends BaseParser {
 
-    /**
-     * TAG for logging
-     **/
     private static final String TAG = "XmlParser";
-    private int changeLogFileResourceId = Constants.changeLogFileResourceId;
+
+    private int changeLogFileResourceId = Constants.logFileResourceId;
     private String changeLogFileResourceUrl = null;
 
     protected ChangeLogAdapter changeLogAdapter;
 
-    //--------------------------------------------------------------------------------
-    //TAGs and ATTRIBUTEs in xml file
-    //--------------------------------------------------------------------------------
-
     private static final String TAG_CHANGELOG = "changelog";
-    private static final String TAG_CHANGELOGVERSION = "changelogversion";
-    private static final String TAG_CHANGELOGTEXT = "changelogtext";
-    private static final String TAG_CHANGELOGBUG = "changelogbug";
-    private static final String TAG_CHANGELOGIMPROVEMENT = "changelogimprovement";
+    private static final String TAG_CHANGELOG_VERSION = "changelogversion";
+    private static final String TAG_CHANGELOG_TEXT = "changelogtext";
+    private static final String TAG_CHANGELOG_NOTE = "note";
+    private static final String TAG_CHANGELOG_FIX = "fix";
+    private static final String TAG_CHANGELOG_NEW = "new";
+    private static final String TAG_CHANGELOG_IMP = "imp";
 
-    private static final String ATTRIBUTE_BULLETEDLIST = "bulletedList";
-    private static final String ATTRIBUTE_VERSIONNAME = "versionName";
-    private static final String ATTRIBUTE_VERSIONCODE = "versionCode";
-    private static final String ATTRIBUTE_CHANGEDATE = "changeDate";
-    //private static final String ATTRIBUTE_CHANGETEXT="changeText";
-    private static final String ATTRIBUTE_CHANGETEXTTITLE = "changeTextTitle";
-
-    private static final List<String> changeLogTags = new ArrayList<String>() {{
-        add(TAG_CHANGELOGBUG);
-        add(TAG_CHANGELOGIMPROVEMENT);
-        add(TAG_CHANGELOGTEXT);
-    }};
+    private static final String ATTRIBUTE_BULLETED_LIST = "bulletedList";
+    private static final String ATTRIBUTE_CURRENT_VERSION = "currentVersion";
+    private static final String ATTRIBUTE_VERSION_NAME = "versionName";
+    private static final String ATTRIBUTE_VERSION_CODE = "versionCode";
+    private static final String ATTRIBUTE_LOG_TYPE = "logType";
+    private static final String ATTRIBUTE_CHANGE_DATE = "changeDate";
 
     //--------------------------------------------------------------------------------
     //Constructors
@@ -141,7 +98,6 @@ public class XmlParser extends BaseParser {
     }
 
     //--------------------------------------------------------------------------------
-
 
     /**
      * Read and parse res/raw/changelog.xml or custom file
@@ -195,7 +151,6 @@ public class XmlParser extends BaseParser {
         return chg;
     }
 
-
     /**
      * Parse changelog node
      *
@@ -208,10 +163,9 @@ public class XmlParser extends BaseParser {
 
         // Parse changelog node
         parser.require(XmlPullParser.START_TAG, null, TAG_CHANGELOG);
-        //Log.d(TAG,"Processing main tag=");
 
         // Read attributes
-        String bulletedList = parser.getAttributeValue(null, ATTRIBUTE_BULLETEDLIST);
+        String bulletedList = parser.getAttributeValue(null, ATTRIBUTE_BULLETED_LIST);
         if (bulletedList == null || bulletedList.equals("true")) {
             changeLog.setBulletedList(true);
             super.bulletedList = true;
@@ -220,16 +174,15 @@ public class XmlParser extends BaseParser {
             super.bulletedList = false;
         }
 
-        //Parse nested nodes
+        // Parse nested nodes
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
             }
 
             String tag = parser.getName();
-            //Log.d(TAG,"Processing tag="+tag);
 
-            if (tag.equals(TAG_CHANGELOGVERSION)) {
+            if (tag.equals(TAG_CHANGELOG_VERSION)) {
                 readChangeLogVersionNode(parser, changeLog);
             }
         }
@@ -242,24 +195,27 @@ public class XmlParser extends BaseParser {
      * @param changeLog changeLog
      * @throws Exception exception
      */
-    protected void readChangeLogVersionNode(XmlPullParser parser, ChangeLog changeLog) throws Exception {
+    protected void readChangeLogVersionNode(XmlPullParser parser, ChangeLog changeLog)
+            throws Exception {
 
         if (parser == null) return;
 
-        parser.require(XmlPullParser.START_TAG, null, TAG_CHANGELOGVERSION);
+        parser.require(XmlPullParser.START_TAG, null, TAG_CHANGELOG_VERSION);
 
         // Read attributes
-        String versionName = parser.getAttributeValue(null, ATTRIBUTE_VERSIONNAME);
-        String versionCodeStr = parser.getAttributeValue(null, ATTRIBUTE_VERSIONCODE);
+        String versionName = parser.getAttributeValue(null, ATTRIBUTE_VERSION_NAME);
+        String versionCodeStr = parser.getAttributeValue(null, ATTRIBUTE_VERSION_CODE);
         int versionCode = 0;
         if (versionCodeStr != null) {
             try {
                 versionCode = Integer.parseInt(versionCodeStr);
             } catch (NumberFormatException ne) {
-                Log.w(TAG, "Error while parsing versionCode.It must be a numeric value. Check you file.");
+                Log.w(TAG, "Error while parsing versionCode.It must be a numeric value. " +
+                        "Check your file.");
             }
         }
-        String changeDate = parser.getAttributeValue(null, ATTRIBUTE_CHANGEDATE);
+
+        String changeDate = parser.getAttributeValue(null, ATTRIBUTE_CHANGE_DATE);
         if (versionName == null)
             throw new ChangeLogException("VersionName required in changeLogVersion node");
 
@@ -269,7 +225,12 @@ public class XmlParser extends BaseParser {
         row.setChangeDate(changeDate);
         changeLog.addRow(row);
 
-        //Log.d(TAG,"Added rowHeader:"+row.toString());
+        String currentVersion = parser.getAttributeValue(null, ATTRIBUTE_CURRENT_VERSION);
+        if (currentVersion != null) {
+            row.setCurrentVersion(currentVersion.equals("true"));
+        } else {
+            row.setCurrentVersion(false);
+        }
 
         // Parse nested nodes
         while (parser.next() != XmlPullParser.END_TAG) {
@@ -277,11 +238,9 @@ public class XmlParser extends BaseParser {
                 continue;
             }
             String tag = parser.getName();
-            //Log.d(TAG,"Processing tag="+tag);
+            // Log.d(TAG,"Processing tag="+tag);
 
-            if (changeLogTags.contains(tag)) {
-                readChangeLogRowNode(parser, changeLog, versionName, versionCode);
-            }
+            readChangeLogRowNode(parser, changeLog, versionName, versionCode);
         }
     }
 
@@ -294,9 +253,7 @@ public class XmlParser extends BaseParser {
      */
     private void readChangeLogRowNode(XmlPullParser parser, ChangeLog changeLog, String versionName,
                                       int versionCode) throws Exception {
-
         if (parser == null) return;
-
 
         String tag = parser.getName();
 
@@ -304,19 +261,38 @@ public class XmlParser extends BaseParser {
         row.setVersionName(versionName);
         row.setVersionCode(versionCode);
 
-        // Read attributes
-        String changeLogTextTitle = parser.getAttributeValue(null,
-                ATTRIBUTE_CHANGETEXTTITLE);
-        if (changeLogTextTitle != null)
-            //noinspection deprecation
-            row.setChangeTextTitle(changeLogTextTitle);
+        parser.require(XmlPullParser.START_TAG, null, TAG_CHANGELOG_TEXT);
 
         // It is possible to force bulleted List
-        String bulletedList = parser.getAttributeValue(null, ATTRIBUTE_BULLETEDLIST);
+        String bulletedList = parser.getAttributeValue(null, ATTRIBUTE_BULLETED_LIST);
         if (bulletedList != null) {
             row.setBulletedList(bulletedList.equals("true"));
         } else {
             row.setBulletedList(super.bulletedList);
+        }
+
+        String logType = parser.getAttributeValue(null, ATTRIBUTE_LOG_TYPE);
+        if (logType != null) {
+            int type;
+            switch (logType) {
+                case TAG_CHANGELOG_FIX:
+                    type = ChangeLogRow.FIX;
+                    break;
+                case TAG_CHANGELOG_IMP:
+                    type = ChangeLogRow.IMPROVEMENT;
+                    break;
+                case TAG_CHANGELOG_NEW:
+                    type = ChangeLogRow.NEW;
+                    break;
+                case TAG_CHANGELOG_NOTE:
+                    type = ChangeLogRow.NOTE;
+                    break;
+                default:
+                    type = ChangeLogRow.DEFAULT;
+            }
+            row.setLogType(type);
+        } else {
+            row.setLogType(ChangeLogRow.DEFAULT);
         }
 
         // Read text
@@ -325,17 +301,11 @@ public class XmlParser extends BaseParser {
             if (changeLogText == null)
                 throw new ChangeLogException("ChangeLogText required in changeLogText node");
             row.parseChangeText(changeLogText);
-            row.setType(tag.equalsIgnoreCase(TAG_CHANGELOGBUG) ? ChangeLogRow.BUGFIX :
-                    tag.equalsIgnoreCase(TAG_CHANGELOGIMPROVEMENT) ? ChangeLogRow.IMPROVEMENT :
-                            ChangeLogRow.DEFAULT);
             parser.nextTag();
         }
+
         changeLog.addRow(row);
-
-        //Log.d(TAG, "Added row:" + row.toString());
-
     }
-
 
     public void setChangeLogAdapter(ChangeLogAdapter changeLogAdapter) {
         this.changeLogAdapter = changeLogAdapter;

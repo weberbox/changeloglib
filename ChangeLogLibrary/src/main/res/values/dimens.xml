@@ -3,8 +3,9 @@
     <dimen name="listPreferredItemHeightSmall">48dp</dimen>
 
     <!-- Material -->
-    <dimen name="chglib_material_minHeight">56dp</dimen>
+    <dimen name="chglib_material_minHeight">48dp</dimen>
     <dimen name="chglib_material_keyline1">16dp</dimen>
     <dimen name="chglib_material_list_fontsize">16sp</dimen>
-    <dimen name="chglib_material_list_suheader_fontsize">14sp</dimen>
+    <dimen name="chglib_material_list_header_fontsize">14sp</dimen>
+    <dimen name="chglib_material_list_header_date_fontsize">12sp</dimen>
 </resources>

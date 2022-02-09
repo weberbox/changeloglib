@@ -20,21 +20,19 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import com.weberbox.changelibs.library.view.ChangeLogListView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 /**
  * Created by gabriele on 28/08/13.
@@ -80,20 +78,15 @@ public class Utils {
                 versionName = VERSION_UNAVAILABLE;
             }
 
-            // Build the about body view and append the link to see OSS licenses
-            //SpannableStringBuilder aboutBody = new SpannableStringBuilder();
-            //aboutBody.append(Html.fromHtml(getString(R.string.about_body, versionName)));
-
-
             LayoutInflater layoutInflater = (LayoutInflater) requireActivity().getSystemService(
                     Context.LAYOUT_INFLATER_SERVICE);
-            View rootView = layoutInflater.inflate(R.layout.demo_changelog_dialog_about, null);
-            TextView nameAndVersionView = (TextView) rootView.findViewById(
+            View rootView = layoutInflater.inflate(R.layout.demo_dialog_about, null);
+            TextView nameAndVersionView = rootView.findViewById(
                     R.id.app_name_and_version);
             nameAndVersionView.setText(Html.fromHtml(
                     getString(R.string.title_about, versionName)));
 
-            TextView aboutBodyView = (TextView) rootView.findViewById(R.id.about_body);
+            TextView aboutBodyView = rootView.findViewById(R.id.about_body);
             aboutBodyView.setText(Html.fromHtml(getString(R.string.about_body)));
             aboutBodyView.setMovementMethod(new LinkMovementMethod());
 
@@ -105,50 +98,4 @@ public class Utils {
                     .create();
         }
     }
-
-    public static void showChangeLog(AppCompatActivity activity) {
-
-        FragmentManager fm = activity.getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        Fragment prev = fm.findFragmentByTag("changelog_about");
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.addToBackStack(null);
-
-        new ChangeLogDialog().show(ft,"changeLog_about");
-    }
-
-    /**
-     * ChangeLogDialog
-     */
-    public static class ChangeLogDialog extends DialogFragment {
-
-
-        public ChangeLogDialog() {
-        }
-
-        @NonNull
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-            LayoutInflater layoutInflater = (LayoutInflater) requireActivity().getSystemService(
-                    Context.LAYOUT_INFLATER_SERVICE);
-            ChangeLogListView chgList=(ChangeLogListView)layoutInflater.inflate(
-                    R.layout.demo_changelog_dialog_changelog, null);
-
-
-            return new AlertDialog.Builder(requireActivity(),R.style.AppCompatAlertDialogStyle)
-                    .setTitle(R.string.demo_changelog_title_changelog)
-                    .setView(chgList)
-                    .setPositiveButton(R.string.about_ok,
-                            (dialog, whichButton) -> dialog.dismiss()
-                    )
-                    .create();
-
-        }
-    }
-
-
-
 }

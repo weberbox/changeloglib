@@ -15,14 +15,12 @@
   ~     limitations under the License.
   ~    *****************************************************************************
   -->
-
-<!-- Base Example -->
 <com.weberbox.changelibs.library.view.ChangeLogRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:chg="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    chg:rowHeaderLayoutId="@layout/changelogrowheader_material_layout"
-    chg:rowLayoutId="@layout/changelogrow_material_layout" />
+    app:chglib_row_header_layout="@layout/demo_header_material_layout"
+    app:chglib_row_layout="@layout/demo_row_material_layout" />
 

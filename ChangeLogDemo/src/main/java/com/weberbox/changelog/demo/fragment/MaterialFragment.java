@@ -35,7 +35,7 @@ public class MaterialFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.demo_changelog_fragment_material, container, false);
+        return inflater.inflate(R.layout.demo_fragment_material, container, false);
     }
 
     @Override

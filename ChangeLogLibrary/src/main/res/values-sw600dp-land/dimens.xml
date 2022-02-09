@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!--
   ~ * ******************************************************************************
   ~     Copyright (c) 2013 Gabriele Mariotti.
+  ~     Copyright (c) 2021 James Weber.
   ~
   ~     Licensed under the Apache License, Version 2.0 (the "License");
   ~     you may not use this file except in compliance with the License.
@@ -15,11 +16,10 @@
   ~     limitations under the License.
   ~    *****************************************************************************
   -->
-
 <resources>
 
     <!-- Material -->
-    <dimen name="chglib_material_minHeight">64dp</dimen>
+    <dimen name="chglib_material_minHeight">56dp</dimen>
     <dimen name="chglib_material_keyline1">24dp</dimen>
 
 </resources>

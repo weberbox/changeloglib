@@ -1,46 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <changelog bulletedList="true">
 
-    <!-- It is a template file for changelog.xml -->
-
-    <!-- Library uses res/raw/changelog.xml file.
-        If you want to use a custom file you can specify
-        chg:changeLogFileResourceId="@raw/custom_changelog"
-        in your View component in layout file -->
-
-
-    <changelogversion
-        changeDate="Aug 26,2013"
-        versionName="1.0">
-        <changelogtext>Initial release.</changelogtext>
+    <changelogversion changeDate="Feb 8,2021" versionName="3.1.0" currentVersion="true">
+        <changelogtext logType="imp">Updated to AndroidX</changelogtext>
+        <changelogtext logType="imp">Updated to AppCompat</changelogtext>
+        <changelogtext logType="imp">Added tags in layout</changelogtext>
     </changelogversion>
 
-    <changelogversion
-        changeDate="Aug 11,2013"
-        versionName="0.9">
-        <changelogtext>[b]New![/b] Add new attrs to customize header and row layout</changelogtext>
-        <changelogtext>Fixed log while parsing</changelogtext>
-        <changelogtext>Add support for html text markup as [b]bold[/b] and [i]italic[/i]
-        </changelogtext>
-        <changelogtext>Add bullet point in list. You can customize character with strings.xml and
-            behavior in xml changelog file
-        </changelogtext>
-        <changelogtext>Support for customized xml filename</changelogtext>
+    <changelogversion changeDate="Aug 26,2013" versionName="1.0">
+        <changelogtext logType="note">Initial release.</changelogtext>
     </changelogversion>
 
-    <changelogversion
-        changeDate="Aug 10,2013"
-        versionName="0.8">
-        <changelogtext>Parse process in AsyncTask</changelogtext>
-        <changelogtext>xml resources in res/raw folder</changelogtext>
-        <changelogtext>Adapter created by ListView</changelogtext>
+    <changelogversion changeDate="Aug 11,2013" versionName="0.9">
+        <changelogtext logType="new">[b]New![/b] Add new attrs to customize header and row layout</changelogtext>
+        <changelogtext logType="fix">Fixed log while parsing</changelogtext>
+        <changelogtext logType="imp">Add support for html text markup as [b]bold[/b] and [i]italic[/i]</changelogtext>
+        <changelogtext logType="new">Add bullet point in list. You can customize character with strings.xml and behavior in xml changelog file</changelogtext>
+        <changelogtext logType="new">Support for customized xml filename</changelogtext>
     </changelogversion>
 
-    <changelogversion
-        changeDate="Aug 5,2013"
-        versionName="0.7">
-        <changelogtext>Demo module added</changelogtext>
-        <changelogtext>Add bulletpoint in xml</changelogtext>
+    <changelogversion changeDate="Aug 10,2013" versionName="0.8">
+        <changelogtext logType="new">Parse process in AsyncTask</changelogtext>
+        <changelogtext logType="new">xml resources in res/raw folder</changelogtext>
+        <changelogtext logType="new">Adapter created by ListView</changelogtext>
+    </changelogversion>
+
+    <changelogversion changeDate="Aug 5,2013" versionName="0.7">
+        <changelogtext logType="new">Demo module added</changelogtext>
+        <changelogtext logType="new">Add bulletpoint in xml</changelogtext>
     </changelogversion>
 
 </changelog>

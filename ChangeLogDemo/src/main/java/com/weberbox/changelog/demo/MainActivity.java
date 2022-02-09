@@ -46,6 +46,7 @@ import com.google.android.material.navigation.NavigationView;
  * Main Activity
  *
  * @author Gabriele Mariotti (gabri.mariotti@gmail.com)
+ * @author James Weber
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.demo_changelog_main_activity);
+        setContentView(R.layout.demo_main_activity);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

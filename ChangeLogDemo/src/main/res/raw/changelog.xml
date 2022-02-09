@@ -1,62 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<changelog bulletedList="true">
+<changelog bulletedList="false">
 
-    <!-- This is Dashclock changelog (https://code.google.com/p/dashclock/wiki/Changelog), used only for test. -->
-
-    <changelogversion versionName="1.5" changeDate="June 17,2013">
-        <changelogtext>[b]New![/b] Use DashClock with Android 4.2's Daydream feature;
-            great for use with desktop docks!
-        </changelogtext>
-        <changelogimprovement><![CDATA[Option to specify a <a href="http://www.google.it">manual</a> location for weather]]></changelogimprovement>
-        <changelogtext>Weather [i]extension[/i] now shows high/low information</changelogtext>
-        <changelogbug>Fixed a [a href="http://www.google.it"]number[/a] of bugs with the Gmail and SMS extensions</changelogbug>
-        <changelogtext>[b][font color=red]For developers:[/font][/b] New API features</changelogtext>
+    <changelogversion versionName="1.5" changeDate="" currentVersion="true">
+        <changelogtext logType="new">[b]New![/b] Use DashClock with Android 4.2's Daydream feature; great for use with desktop docks!</changelogtext>
+        <changelogtext logType="note"><![CDATA[Option to specify a <a href="http://www.google.it">manual</a> location for weather]]></changelogtext>
+        <changelogtext logType="imp">Weather [i]extension[/i] now shows high/low information</changelogtext>
+        <changelogtext logType="fix">Fixed a [a href="http://www.google.it"]number[/a] of bugs with the Gmail and SMS extensions</changelogtext>
+        <changelogtext logType="new">[b][font color=red]For developers:[/font][/b] New API features</changelogtext>
     </changelogversion>
 
-    <changelogversion versionName="1.4.3" changeDate="March 25, 2013">
-        <changelogtext><![CDATA[<b><font color=red>New!</font></b> Translations for Greek,
-                Dutch and Brazilian Portuguese]]>
-        </changelogtext>
-        <changelogtext>Calendar extension now shows the current appointment if it started in the
-            past 5 minutes
-        </changelogtext>
-        <changelogtext>Fixed a few issues related to all-day events</changelogtext>
-        <changelogtext>Fixed a couple crashes</changelogtext>
+    <changelogversion versionName="1.4.3" changeDate="">
+        <changelogtext logType="note">Translations for Greek, Dutch and Brazilian Portuguese></changelogtext>
+        <changelogtext logType="imp">Calendar extension now shows the current appointment if it started in the past 5 minutes</changelogtext>
+        <changelogtext logType="fix">Fixed a few issues related to all-day events</changelogtext>
+        <changelogtext logType="fix">Fixed a couple crashes</changelogtext>
     </changelogversion>
 
     <changelogversion versionName="1.4.2" changeDate="March 6, 2013">
-        <changelogtext>[b]New![/b] Analog clock options in appearance configuration
-        </changelogtext>
-        <changelogtext>[b]Fixed[/b] an issue where the home screen widget wouldn't
-            update
-        </changelogtext>
-        <changelogtext>Fixed the unread text message count (again)</changelogtext>
-        <changelogtext>Improved weather updates</changelogtext>
-        <changelogtext>Fixed a few issues related to all-day events</changelogtext>
-        <changelogtext>Fixed a couple crashes with built-in extensions</changelogtext>
-        <changelogtext>Fixed an issue related to calendar visibility choices not being saved
-        </changelogtext>
-        <changelogtext>Updated translations for some languages</changelogtext>
+        <changelogtext logType="new">[b]New![/b] Analog clock options in appearance configuration</changelogtext>
+        <changelogtext logType="fix">[b]Fixed[/b] an issue where the home screen widget wouldn't update</changelogtext>
+        <changelogtext logType="fix">Fixed the unread text message count (again)</changelogtext>
+        <changelogtext logType="imp">Improved weather updates</changelogtext>
+        <changelogtext logType="fix">Fixed a few issues related to all-day events</changelogtext>
+        <changelogtext logType="fix">Fixed a couple crashes with built-in extensions</changelogtext>
+        <changelogtext logType="fix">Fixed an issue related to calendar visibility choices not being saved</changelogtext>
+        <changelogtext logType="imp">Updated translations for some languages</changelogtext>
     </changelogversion>
 
     <changelogversion versionName="1.4.1" changeDate="March 1, 2013">
-        <changelogtext>Hotfix for SMS sender name issue</changelogtext>
+        <changelogtext logType="fix">Hotfix for SMS sender name issue</changelogtext>
     </changelogversion>
 
     <changelogversion versionName="1.4" changeDate="Feb 28, 2013">
-
-        <changelogtext>[b]New![/b] Option to hide the settings button when the widget is
-            expanded; if you enable this, you can always add a "Configure DashClock Widget" shortcut
-            to your home screen
-        </changelogtext>
-        <changelogtext>[b]New![/b] Option to show all day events in the calendar
-            extension
-        </changelogtext>
-        <changelogtext>Fixed a few crashes related to SMS provider</changelogtext>
-        <changelogtext>Fixed display of missed calls from unknown numbers</changelogtext>
-        <changelogtext>Improved weather updates (minor)</changelogtext>
-        <changelogtext>Suppressed widget flickering</changelogtext>
+        <changelogtext logType="new">[b]New![/b] Option to hide the settings button when the widget is expanded; if you enable this, you can always add a "Configure DashClock Widget" shortcut to your home screen</changelogtext>
+        <changelogtext logType="new">[b]New![/b] Option to show all day events in the calendar extension</changelogtext>
+        <changelogtext logType="fix">Fixed a few crashes related to SMS provider</changelogtext>
+        <changelogtext logType="fix">Fixed display of missed calls from unknown numbers</changelogtext>
+        <changelogtext logType="imp">Improved weather updates (minor)</changelogtext>
+        <changelogtext logType="fix">Suppressed widget flickering</changelogtext>
     </changelogversion>
-
 
 </changelog>

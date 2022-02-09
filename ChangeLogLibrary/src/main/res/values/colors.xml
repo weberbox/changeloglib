@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!--
   ~ /*******************************************************************************
   ~  * Copyright (c) 2014 Gabriele Mariotti.
+  ~  * Copyright (c) 2021 James Weber.
   ~  *
   ~  * Licensed under the Apache License, Version 2.0 (the "License");
   ~  * you may not use this file except in compliance with the License.
@@ -15,13 +16,11 @@
   ~  * limitations under the License.
   ~  ******************************************************************************/
   -->
-
 <resources>
-    <color name="chglib_background_default_divider_color">#DADADC</color>
-
-    <color name="chglib_material_background_default_divider_color">#1F000000</color>
-    <color name="chglib_material_color_text_1">#de000000</color>
-    <color name="chglib_material_color_text_2">#8a000000</color>
-    <color name="chglib_material_color_text_3">#60000000</color>
-
+    <color name="chglib_divider_color">#DADADC</color>
+    <color name="chglib_material_divider_color">#FF444444</color>
+    <color name="chglib_current_version_color">#388E3C</color>
+    <color name="chglib_version_text_color">#8A000000</color>
+    <color name="chglib_material_date_text_color">#8A000000</color>
+    <color name="chglib_material_item_text_color">#DE000000</color>
 </resources>

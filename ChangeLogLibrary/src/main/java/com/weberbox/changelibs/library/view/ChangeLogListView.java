@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2013 Gabriele Mariotti.
+ * Copyright (c) 2021 James Weber.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +16,6 @@
  **/
 package com.weberbox.changelibs.library.view;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
@@ -39,6 +39,7 @@ import com.weberbox.changelibs.library.internal.ChangeLog;
  * ListView for ChangeLog
  *
  * @author Gabriele Mariotti (gabri.mariotti@gmail.com)
+ * @author James Weber
  */
 public class ChangeLogListView extends ListView implements AdapterView.OnItemClickListener {
 
@@ -47,7 +48,8 @@ public class ChangeLogListView extends ListView implements AdapterView.OnItemCli
     //--------------------------------------------------------------------------
     protected int rowLayoutId = Constants.rowLayoutId;
     protected int rowHeaderLayoutId = Constants.rowHeaderLayoutId;
-    protected int changeLogFileResourceId = Constants.changeLogFileResourceId;
+    protected int changeLogFileResourceId = Constants.logFileResourceId;
+    protected int colorCurrentVersion = Constants.currentVersionColor;
     protected String changeLogFileResourceUrl = null;
 
     //--------------------------------------------------------------------------
@@ -108,18 +110,20 @@ public class ChangeLogListView extends ListView implements AdapterView.OnItemCli
 
         try {
             //Layout for rows and header
-            rowLayoutId = a.getResourceId(R.styleable.ChangeLogListView_rowLayoutId, rowLayoutId);
-            rowHeaderLayoutId = a.getResourceId(R.styleable.ChangeLogListView_rowHeaderLayoutId,
+            rowLayoutId = a.getResourceId(R.styleable.ChangeLogListView_chglib_row_layout, rowLayoutId);
+            rowHeaderLayoutId = a.getResourceId(R.styleable.ChangeLogListView_chglib_row_header_layout,
                     rowHeaderLayoutId);
 
             //Changelog.xml file
             changeLogFileResourceId = a.getResourceId(R
-                    .styleable.ChangeLogListView_changeLogFileResourceId, changeLogFileResourceId);
+                    .styleable.ChangeLogListView_chglib_log_file_resource, changeLogFileResourceId);
 
             changeLogFileResourceUrl = a.getString(
-                    R.styleable.ChangeLogListView_changeLogFileResourceUrl);
-            //String which is used in header row for Version
-            //mStringVersionHeader= a.getResourceId(R.styleable.ChangeLogListView_StringVersionHeader,mStringVersionHeader);
+                    R.styleable.ChangeLogListView_chglib_log_file_resource_url);
+
+            colorCurrentVersion = a.getResourceId(
+                    R.styleable.ChangeLogListView_chglib_current_version_color,
+                    colorCurrentVersion);
 
         } finally {
             a.recycle();
@@ -134,10 +138,11 @@ public class ChangeLogListView extends ListView implements AdapterView.OnItemCli
         try {
             //Read and parse changelog.xml
             XmlParser parse;
-            if (changeLogFileResourceUrl != null)
+            if (changeLogFileResourceUrl != null) {
                 parse = new XmlParser(getContext(), changeLogFileResourceUrl);
-            else
+            } else {
                 parse = new XmlParser(getContext(), changeLogFileResourceId);
+            }
             //ChangeLog chg=parse.readChangeLogFile();
             ChangeLog chg = new ChangeLog();
 
@@ -145,13 +150,16 @@ public class ChangeLogListView extends ListView implements AdapterView.OnItemCli
             adapter = new ChangeLogAdapter(getContext(), chg.getRows());
             adapter.setRowLayoutId(rowLayoutId);
             adapter.setRowHeaderLayoutId(rowHeaderLayoutId);
+            adapter.setCurrentVersionColor(colorCurrentVersion);
 
             //Parse in a separate Thread to avoid UI block with large files
-            if (changeLogFileResourceUrl == null || Util.isConnected(getContext()))
+            if (changeLogFileResourceUrl == null || Util.isConnected(getContext())) {
                 new ParseAsyncTask(adapter, parse).execute();
-            else
+            } else {
                 Toast.makeText(getContext(), R.string.changelog_internal_error_internet_connection,
                         Toast.LENGTH_LONG).show();
+            }
+
             setAdapter(adapter);
 
         } catch (Exception e) {
@@ -163,7 +171,6 @@ public class ChangeLogListView extends ListView implements AdapterView.OnItemCli
     /**
      * Async Task to parse xml file in a separate thread
      */
-    @SuppressLint("StaticFieldLeak")
     protected class ParseAsyncTask extends AsyncTask<Void, Void, ChangeLog> {
 
         private final ChangeLogAdapter adapter;
@@ -198,10 +205,9 @@ public class ChangeLogListView extends ListView implements AdapterView.OnItemCli
 
         @Override
         protected void onBackgroundError(Exception e) {
-
+            Log.e(TAG, getResources().getString(R.string.changelog_internal_error_parsing), e);
         }
     }
-
 
     /**
      * Sets the list's adapter, enforces the use of only a ChangeLogAdapter

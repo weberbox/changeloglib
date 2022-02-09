@@ -1,6 +1,7 @@
 /*
  * ******************************************************************************
  *   Copyright (c) 2013-2015 Gabriele Mariotti.
+ *   Copyright (c) 2021 James Weber.
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
  *   you may not use this file except in compliance with the License.
@@ -17,11 +18,9 @@
  */
 package com.weberbox.changelibs.library.view;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.os.AsyncTask;
 import android.os.Build;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -32,6 +31,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.weberbox.changelibs.R;
+import com.weberbox.changelibs.library.async.AsyncTask;
 import com.weberbox.changelibs.library.internal.ChangeLogRecyclerViewAdapter;
 import com.weberbox.changelibs.library.parser.XmlParser;
 
@@ -43,6 +43,7 @@ import com.weberbox.changelibs.library.internal.ChangeLog;
  * RecyclerView for ChangeLog
  *
  * @author Gabriele Mariotti (gabri.mariotti@gmail.com)
+ * @author James Weber
  */
 public class ChangeLogRecyclerView extends RecyclerView {
 
@@ -51,7 +52,8 @@ public class ChangeLogRecyclerView extends RecyclerView {
     //--------------------------------------------------------------------------
     protected int rowLayoutId = Constants.rowLayoutId;
     protected int rowHeaderLayoutId = Constants.rowHeaderLayoutId;
-    protected int changeLogFileResourceId = Constants.changeLogFileResourceId;
+    protected int changeLogFileResourceId = Constants.logFileResourceId;
+    protected int colorCurrentVersion = Constants.currentVersionColor;
     protected String changeLogFileResourceUrl = null;
 
     //--------------------------------------------------------------------------
@@ -90,13 +92,13 @@ public class ChangeLogRecyclerView extends RecyclerView {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     protected void init(AttributeSet attrs, int defStyle) {
 
-        //Init attrs
+        // Init attrs
         initAttrs(attrs, defStyle);
 
-        //Init adapter
+        // Init adapter
         initAdapter();
 
-        //Init the LayoutManager
+        // Init the LayoutManager
         initLayoutManager();
 
     }
@@ -121,26 +123,24 @@ public class ChangeLogRecyclerView extends RecyclerView {
                 attrs, R.styleable.ChangeLogListView, defStyle, defStyle);
 
         try {
-            //Layout for rows and header
-            rowLayoutId = a.getResourceId(R.styleable.ChangeLogListView_rowLayoutId, rowLayoutId);
-            rowHeaderLayoutId = a.getResourceId(R.styleable.ChangeLogListView_rowHeaderLayoutId,
+            rowLayoutId = a.getResourceId(R.styleable.ChangeLogListView_chglib_row_layout, rowLayoutId);
+            rowHeaderLayoutId = a.getResourceId(R.styleable.ChangeLogListView_chglib_row_header_layout,
                     rowHeaderLayoutId);
 
-            //Changelog.xml file
             changeLogFileResourceId = a.getResourceId(
-                    R.styleable.ChangeLogListView_changeLogFileResourceId, changeLogFileResourceId);
-
+                    R.styleable.ChangeLogListView_chglib_log_file_resource,
+                    changeLogFileResourceId);
             changeLogFileResourceUrl = a.getString(
-                    R.styleable.ChangeLogListView_changeLogFileResourceUrl);
-            //String which is used in header row for Version
-            //mStringVersionHeader= a.getResourceId(
-            // R.styleable.ChangeLogListView_StringVersionHeader,mStringVersionHeader);
+                    R.styleable.ChangeLogListView_chglib_log_file_resource_url);
+
+            colorCurrentVersion = a.getResourceId(
+                    R.styleable.ChangeLogListView_chglib_current_version_color,
+                    colorCurrentVersion);
 
         } finally {
             a.recycle();
         }
     }
-
 
     /**
      * Init adapter
@@ -148,26 +148,28 @@ public class ChangeLogRecyclerView extends RecyclerView {
     protected void initAdapter() {
 
         try {
-            //Read and parse changelog.xml
+            // Read and parse changelog.xml
             XmlParser parse;
             if (changeLogFileResourceUrl != null)
                 parse = new XmlParser(getContext(), changeLogFileResourceUrl);
             else
                 parse = new XmlParser(getContext(), changeLogFileResourceId);
-            //ChangeLog chg=parse.readChangeLogFile();
             ChangeLog chg = new ChangeLog();
 
-            //Create adapter and set custom attrs
+            // Create adapter and set custom attrs
             adapter = new ChangeLogRecyclerViewAdapter(getContext(), chg.getRows());
             adapter.setRowLayoutId(rowLayoutId);
             adapter.setRowHeaderLayoutId(rowHeaderLayoutId);
+            adapter.setCurrentVersionColor(colorCurrentVersion);
 
-            //Parse in a separate Thread to avoid UI block with large files
-            if (changeLogFileResourceUrl == null || Util.isConnected(getContext()))
+            // Parse in a separate Thread to avoid UI block with large files
+            if (changeLogFileResourceUrl == null || Util.isConnected(getContext())) {
                 new ParseAsyncTask(adapter, parse).execute();
-            else
+            } else {
                 Toast.makeText(getContext(), R.string.changelog_internal_error_internet_connection,
                         Toast.LENGTH_LONG).show();
+            }
+
             setAdapter(adapter);
 
         } catch (Exception e) {
@@ -176,24 +178,21 @@ public class ChangeLogRecyclerView extends RecyclerView {
 
     }
 
-
     /**
      * Async Task to parse xml file in a separate thread
      */
-    @SuppressLint("StaticFieldLeak")
     protected class ParseAsyncTask extends AsyncTask<Void, Void, ChangeLog> {
 
         private final ChangeLogRecyclerViewAdapter adapter;
         private final XmlParser parse;
 
-        @SuppressWarnings("deprecation")
         public ParseAsyncTask(ChangeLogRecyclerViewAdapter adapter, XmlParser parse) {
             this.adapter = adapter;
             this.parse = parse;
         }
 
         @Override
-        protected ChangeLog doInBackground(Void... params) {
+        protected ChangeLog doInBackground(Void params) {
 
             try {
                 if (parse != null) {
@@ -207,12 +206,15 @@ public class ChangeLogRecyclerView extends RecyclerView {
 
         protected void onPostExecute(ChangeLog chg) {
 
-            //Notify data changed
+            // Notify data changed
             if (chg != null) {
                 adapter.add(chg.getRows());
             }
         }
+
+        @Override
+        protected void onBackgroundError(Exception e) {
+            Log.e(TAG, getResources().getString(R.string.changelog_internal_error_parsing), e);
+        }
     }
-
-
 }

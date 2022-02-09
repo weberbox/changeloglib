@@ -9,6 +9,7 @@
     android:minHeight="@dimen/chglib_material_minHeight"
     android:orientation="horizontal"
     android:paddingLeft="@dimen/chglib_material_keyline1"
+    android:paddingTop="40dp"
     android:paddingRight="@dimen/chglib_material_keyline1">
 
     <!-- ChangeLog Header [Version] You have to use the id="chg_headerVersion" -->
@@ -17,15 +18,16 @@
         style="?android:attr/listSeparatorTextViewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
         android:paddingTop="@dimen/chglib_material_keyline1"
         android:paddingBottom="@dimen/chglib_material_keyline1"
-        android:textColor="@color/chglib_material_color_text_1"
-        android:textSize="@dimen/chglib_material_list_suheader_fontsize"
+        android:textAllCaps="false"
+        android:textColor="@color/chglib_version_text_color"
+        android:textSize="@dimen/chglib_material_list_header_fontsize"
         android:textStyle="bold"
         app:fontFamily="@string/font_fontFamily_material_item"
-        app:textAllCaps="true"
-        tools:text="VERSION 1.5" />
+        tools:text="v1.5" />
 
     <!-- ChangeLog Header [Date] You have to use the id="chg_headerDate" -->
     <TextView
@@ -33,15 +35,14 @@
         style="?android:attr/listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:gravity="center_vertical"
         android:paddingTop="@dimen/chglib_material_keyline1"
         android:paddingBottom="@dimen/chglib_material_keyline1"
-        android:textColor="@color/chglib_material_color_text_1"
-        android:textSize="@dimen/chglib_material_list_suheader_fontsize"
+        android:textColor="@color/chglib_material_date_text_color"
+        android:textSize="@dimen/chglib_material_list_header_date_fontsize"
         android:textStyle="bold"
         app:fontFamily="@string/font_fontFamily_material_item"
-        app:textAllCaps="true"
         tools:text="JUNE 17,2013" />
-
 
 </LinearLayout>

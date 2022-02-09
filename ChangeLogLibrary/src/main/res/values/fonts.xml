@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!--
   ~ * ******************************************************************************
   ~     Copyright (c) 2013 Gabriele Mariotti.
+  ~     Copyright (c) 2021 James Weber.
   ~
   ~     Licensed under the Apache License, Version 2.0 (the "License");
   ~     you may not use this file except in compliance with the License.
@@ -15,7 +16,6 @@
   ~     limitations under the License.
   ~    *****************************************************************************
   -->
-
 <resources>
     <integer name="font_textStyle_material_item">0</integer> <!-- normal -->
     <string name="font_fontFamily_material_item">sans-serif</string>

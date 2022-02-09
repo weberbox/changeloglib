@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2013 Gabriele Mariotti.
+ * Copyright (c) 2021 James Weber.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,17 +23,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.List;
+import androidx.core.content.ContextCompat;
 
 import com.weberbox.changelibs.R;
 import com.weberbox.changelibs.library.Constants;
+
+import java.util.List;
 
 /**
  * Adapter for ChangeLog model
  *
  * @author Gabriele Mariotti (gabri.mariotti@gmail.com)
+ * @author James Weber
  */
 @SuppressWarnings("unused")
 public class ChangeLogAdapter extends ArrayAdapter<ChangeLogRow> {
@@ -42,16 +47,15 @@ public class ChangeLogAdapter extends ArrayAdapter<ChangeLogRow> {
 
     private int rowLayoutId = Constants.rowLayoutId;
     private int rowHeaderLayoutId = Constants.rowHeaderLayoutId;
+    private int colorCurrentVersion = Constants.currentVersionColor;
     private int stringVersionHeader = Constants.stringVersionHeader;
 
-    private final Context mContext;
-
-    //private boolean mChangeLogRowClickable = false;
+    private final Context context;
 
     public ChangeLogAdapter(Context context,
                             List<ChangeLogRow> items) {
         super(context, 0, items);
-        mContext = context;
+        this.context = context;
     }
 
     @Override
@@ -59,17 +63,12 @@ public class ChangeLogAdapter extends ArrayAdapter<ChangeLogRow> {
         return false;
     }
 
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
-        //It uses ViewHolder Pattern.
-
         ChangeLogRow item = getItem(position);
         View view = convertView;
         int viewType = this.getItemViewType(position);
-        // LayoutInflater mInflater = mContext.getLayoutInflater();
-        LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         switch (viewType) {
             case TYPE_HEADER:
@@ -88,9 +87,9 @@ public class ChangeLogAdapter extends ArrayAdapter<ChangeLogRow> {
                     int layout = rowHeaderLayoutId;
                     view = mInflater.inflate(layout, parent, false);
 
-                    //VersionName text
+                    // VersionName text
                     TextView textHeader = view.findViewById(R.id.chg_headerVersion);
-                    //ChangeData text
+                    // ChangeData text
                     TextView textDate = view.findViewById(R.id.chg_headerDate);
                     viewHolderHeader = new ViewHolderHeader(textHeader, textDate);
 
@@ -100,28 +99,34 @@ public class ChangeLogAdapter extends ArrayAdapter<ChangeLogRow> {
                 if (item != null) {
                     if (viewHolderHeader.version != null) {
                         StringBuilder sb = new StringBuilder();
-                        //String resource for Version
+                        // String resource for Version
                         String versionHeaderString = getContext().getString(stringVersionHeader);
                         if (versionHeaderString != null)
                             sb.append(versionHeaderString);
-                        //VersionName text
+                        // VersionName text
                         sb.append(item.versionName);
 
                         viewHolderHeader.version.setText(sb.toString());
                     }
 
-                    //ChangeData text
+                    // Change Date text
                     if (viewHolderHeader.date != null) {
-                        //Check if exists
-
                         if (item.changeDate != null) {
                             viewHolderHeader.date.setText(item.changeDate);
                             viewHolderHeader.date.setVisibility(View.VISIBLE);
                         } else {
-                            //If item hasn't changedata, hide TextView
+                            // If item does not have change date, hide TextView
                             viewHolderHeader.date.setText("");
                             viewHolderHeader.date.setVisibility(View.GONE);
                         }
+                    }
+
+                    if (item.isCurrentVersion()) {
+                        viewHolderHeader.version.setTextColor(ContextCompat.getColor(context,
+                                colorCurrentVersion));
+                    } else {
+                        viewHolderHeader.version.setTextColor(ContextCompat.getColor(context,
+                                Constants.previousVersionColor));
                     }
                 }
                 break;
@@ -144,7 +149,8 @@ public class ChangeLogAdapter extends ArrayAdapter<ChangeLogRow> {
 
                     TextView textText = view.findViewById(R.id.chg_text);
                     TextView bulletText = view.findViewById(R.id.chg_textbullet);
-                    viewHolder = new ViewHolderRow(textText, bulletText);
+                    ImageView imageTag = view.findViewById(R.id.chg_tag);
+                    viewHolder = new ViewHolderRow(textText, bulletText, imageTag);
                     view.setTag(viewHolder);
 
                 }
@@ -152,7 +158,7 @@ public class ChangeLogAdapter extends ArrayAdapter<ChangeLogRow> {
 
                 if (item != null) {
                     if (viewHolder.text != null) {
-                        viewHolder.text.setText(Html.fromHtml(item.getChangeText(mContext)));
+                        viewHolder.text.setText(Html.fromHtml(item.getChangeText()));
                         viewHolder.text.setMovementMethod(LinkMovementMethod.getInstance());
                     }
                     if (viewHolder.bulletText != null) {
@@ -162,11 +168,38 @@ public class ChangeLogAdapter extends ArrayAdapter<ChangeLogRow> {
                             viewHolder.bulletText.setVisibility(View.GONE);
                         }
                     }
+                    if (viewHolder.imageTag != null) {
+                        switch (item.getLogType()) {
+                            case ChangeLogRow.IMPROVEMENT:
+                                viewHolder.imageTag.setImageDrawable(
+                                        ContextCompat.getDrawable(context, R.drawable.impr_icon));
+                                viewHolder.imageTag.setVisibility(View.VISIBLE);
+                                break;
+                            case ChangeLogRow.FIX:
+                                viewHolder.imageTag.setImageDrawable(
+                                        ContextCompat.getDrawable(context, R.drawable.fix_icon));
+                                viewHolder.imageTag.setVisibility(View.VISIBLE);
+                                break;
+                            case ChangeLogRow.NOTE:
+                                viewHolder.imageTag.setImageDrawable(
+                                        ContextCompat.getDrawable(context, R.drawable.note_icon));
+                                viewHolder.imageTag.setVisibility(View.VISIBLE);
+                                break;
+                            case ChangeLogRow.NEW:
+                                viewHolder.imageTag.setImageDrawable(
+                                        ContextCompat.getDrawable(context, R.drawable.new_icon));
+                                viewHolder.imageTag.setVisibility(View.VISIBLE);
+                                break;
+                            case ChangeLogRow.DEFAULT:
+                                viewHolder.imageTag.setVisibility(View.GONE);
+                                break;
+                        }
+                    }
                 }
 
                 break;
             default:
-                //Throw exception, unknown data type
+                // Throw exception, unknown data type
         }
 
         return view;
@@ -179,8 +212,9 @@ public class ChangeLogAdapter extends ArrayAdapter<ChangeLogRow> {
 
     @Override
     public int getItemViewType(int position) {
-        if (getItem(position).isHeader())
+        if (getItem(position).isHeader()) {
             return TYPE_HEADER;
+        }
         return TYPE_ROW;
     }
 
@@ -201,10 +235,12 @@ public class ChangeLogAdapter extends ArrayAdapter<ChangeLogRow> {
     static class ViewHolderRow {
         TextView text;
         TextView bulletText;
+        ImageView imageTag;
 
-        public ViewHolderRow(TextView text, TextView bulletText) {
+        public ViewHolderRow(TextView text, TextView bulletText, ImageView imageTag) {
             this.text = text;
             this.bulletText = bulletText;
+            this.imageTag = imageTag;
         }
     }
 
@@ -217,23 +253,27 @@ public class ChangeLogAdapter extends ArrayAdapter<ChangeLogRow> {
         return rowLayoutId;
     }
 
-    public void setRowLayoutId(int mRowLayoutId) {
-        this.rowLayoutId = mRowLayoutId;
+    public void setRowLayoutId(int rowLayoutId) {
+        this.rowLayoutId = rowLayoutId;
     }
 
     public int getRowHeaderLayoutId() {
         return rowHeaderLayoutId;
     }
 
-    public void setRowHeaderLayoutId(int mRowHeaderLayoutId) {
-        this.rowHeaderLayoutId = mRowHeaderLayoutId;
+    public void setRowHeaderLayoutId(int rowHeaderLayoutId) {
+        this.rowHeaderLayoutId = rowHeaderLayoutId;
     }
 
     public int getStringVersionHeader() {
         return stringVersionHeader;
     }
 
-    public void setStringVersionHeader(int mStringVersionHeader) {
-        this.stringVersionHeader = mStringVersionHeader;
+    public void setStringVersionHeader(int stringVersionHeader) {
+        this.stringVersionHeader = stringVersionHeader;
+    }
+
+    public void setCurrentVersionColor(int colorCurrentVersion) {
+        this.colorCurrentVersion = colorCurrentVersion;
     }
 }

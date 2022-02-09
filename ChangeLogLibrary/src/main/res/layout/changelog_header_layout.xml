@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/chg_rowheader"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
+    android:layout_marginStart="12dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginLeft="12dp"
+    android:layout_marginEnd="12dp"
+    android:layout_marginRight="12dp"
     android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:padding="10dp">
-
+    android:orientation="horizontal">
 
     <!-- ChangeLog Header [Version] You have to use the id="chg_headerVersion" -->
     <TextView
@@ -18,9 +20,10 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:text=""
-        android:textAllCaps="true"
+        android:textAllCaps="false"
         android:textAppearance="@android:style/TextAppearance.Medium"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:text="v1.5" />
 
     <!-- ChangeLog Header [Date] You have to use the id="chg_headerDate" -->
     <TextView
@@ -30,9 +33,9 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:text=""
-        android:textAllCaps="true"
         android:textAppearance="@android:style/TextAppearance.Medium"
-        android:textStyle="bold" />
-
+        android:textStyle="bold"
+        android:textSize="13sp"
+        tools:text="JUNE 17,2013" />
 
 </LinearLayout>

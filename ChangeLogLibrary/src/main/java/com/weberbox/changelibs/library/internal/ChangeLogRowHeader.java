@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2013 Gabriele Mariotti.
+ * Copyright (c) 2021 James Weber.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@ import androidx.annotation.NonNull;
  * ChangeLogRow model for a headerRow
  *
  * @author Gabriele Mariotti (gabri.mariotti@gmail.com)
+ * @author James Weber
  */
 public class ChangeLogRowHeader extends ChangeLogRow {
 
@@ -28,12 +30,10 @@ public class ChangeLogRowHeader extends ChangeLogRow {
     // Constructors
     //-----------------------------------------------------------------------
 
-    @SuppressWarnings("deprecation")
     public ChangeLogRowHeader() {
         super();
         setHeader(true);
         setBulletedList(false);
-        setChangeTextTitle(null);
     }
 
     //-----------------------------------------------------------------------

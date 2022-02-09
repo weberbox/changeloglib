@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!--
   ~ * ******************************************************************************
   ~     Copyright (c) 2013 Gabriele Mariotti.
+  ~     Copyright (c) 2021 James Weber.
   ~
   ~     Licensed under the Apache License, Version 2.0 (the "License");
   ~     you may not use this file except in compliance with the License.
@@ -28,10 +29,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:minHeight="@dimen/listPreferredItemHeightSmall"
+        android:minHeight="?attr/listPreferredItemHeightSmall"
         android:orientation="horizontal"
         tools:ignore="UselessParent">
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/chg_tag"
+                android:layout_width="34dp"
+                android:layout_height="17dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="2dp"
+                android:gravity="top"
+                tools:src="@drawable/note_icon"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="2dp"
+                android:contentDescription="@string/changelog_row_tag" />
+
+        </LinearLayout>
 
         <!-- ChangeLog Row [Bullet Point] You have to use the id="chg_textbullet" -->
         <TextView
@@ -43,10 +63,9 @@
             android:paddingLeft="@dimen/chglib_material_keyline1"
             android:text="@string/changelog_row_bulletpoint"
             android:textAppearance="@android:style/TextAppearance.Large"
-            android:textColor="@color/chglib_material_color_text_1"
+            android:textColor="@color/chglib_material_item_text_color"
             app:fontFamily="@string/font_fontFamily_material_item"
             tools:ignore="RtlSymmetry" />
-
 
         <!-- ChangeLog Row [Text] You have to use the id="chg_text" -->
         <TextView
@@ -54,13 +73,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:minHeight="@dimen/listPreferredItemHeightSmall"
+            android:minHeight="?attr/listPreferredItemHeightSmall"
             android:padding="@dimen/chglib_material_keyline1"
-            android:textColor="@color/chglib_material_color_text_1"
+            android:textColor="@color/chglib_material_item_text_color"
             android:textSize="@dimen/chglib_material_list_fontsize"
             app:fontFamily="@string/font_fontFamily_material_item"
             tools:text="Use DashClock with Android 4.2's Daydream feature; great for use with desktop docks!" />
     </LinearLayout>
-
-
 </LinearLayout>

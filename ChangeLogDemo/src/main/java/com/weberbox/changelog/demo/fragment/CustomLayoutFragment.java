@@ -46,7 +46,7 @@ public class CustomLayoutFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.demo_changelog_fragment_customlayout, container, false);
+        return inflater.inflate(R.layout.demo_fragment_customlayout, container, false);
     }
 
     @Override

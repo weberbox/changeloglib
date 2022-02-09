@@ -8,7 +8,7 @@
     <!-- String for Version Header.
          You can customize it in your strings.xml.
          Use string with quotes if you want a space -->
-    <string name="changelog_header_version">"Version "</string>
+    <string name="changelog_header_version">v</string>
 
     <!-- BulletPoint
         You can customize it in your strings.xml

@@ -38,7 +38,7 @@ public class WithoutBulletPointFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.demo_changelog_fragment_withoutbullet, container, false);
+        return inflater.inflate(R.layout.demo_fragment_withoutbullet, container, false);
     }
 
     @Override
